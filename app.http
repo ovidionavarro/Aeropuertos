@@ -1,1 +1,9 @@
-GET http://localhost:1234/
+GET http://localhost:1234/clientes/
+###
+
+POST http://localhost:1234/clientes
+Content-Type:application/json
+
+{
+    "nombre" : "Client1"
+}
