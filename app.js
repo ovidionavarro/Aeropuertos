@@ -1,33 +1,17 @@
-require('dotenv').config();
-const hbs=require('hbs');
-const path=require('path');
-const express = require('express')
+import express from 'express'
+import cors from 'cors'
+import 'dotenv/config'
 
-
-
+const PORT = process.env.PORT ?? 1234
 const app = express()
+
 app.use(express.json())
-//midlewares
-app.set('view engine','hbs')
-hbs.registerPartials(__dirname+'/views/partials')
-    //definiendo public como carpeta publica 
-app.use(express.static(path.join(__dirname,'public')))
+app.use(cors())
 
-app.get('/',(req,res)=>{
-    res.send('desde el app')
+app.get('/', (req, res) => {
+  res.send('hola mundo')
 })
-//pag principal
-app.get('/users',(req,res)=>{
-    res.render('users')
-})
-//llamando las rutas
-app.use(require('./routers/users'))
 
-
-
-
-
-
-app.listen(process.env.PORT,()=>{
-    console.log(`server on port ${process.env.PORT}`);
+app.listen(PORT, () => {
+  console.log(`http://localhost:${PORT}`)
 })
