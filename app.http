@@ -1,9 +1,25 @@
 GET http://localhost:1234/clientes/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZUlkIjoxLCJpYXQiOjE2OTg0NTM0OTksImV4cCI6MTY5OTA1ODI5OX0.g6Ud53LRsOaItPVJ88S-BLDaIKsXmVdW9UutwOpyarA
 ###
 
 POST http://localhost:1234/clientes
 Content-Type:application/json
 
 {
-    "nombre" : "Client1"
+    "nombre": "Cliente2"
+}
+###
+POST http://localhost:1234/login
+Content-Type:application/json
+
+{
+}
+
+###
+POST http://localhost:1234/admin/login
+Content-Type:application/json
+
+{
+    "username": "admin",
+    "password" : "admin"
 }

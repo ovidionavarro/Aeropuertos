@@ -1,4 +1,5 @@
 import { Client } from '../models/index.js'
+import { validateClient } from '../schemas/client.js'
 
 export default class ClientController {
   static getAll = async (req, res) => {
@@ -7,9 +8,12 @@ export default class ClientController {
   }
 
   static create = async (req, res) => {
-    const { body } = req
-    const client = new Client(body)
+    const result = validateClient(req.body)
+    if (!result.success) {
+      return res.status(400).json({ error: JSON.parse(result.error.message) })
+    }
+    const client = new Client(result.data)
     await client.save()
-    res.json({ client })
+    res.status(201).json({ client })
   }
 }

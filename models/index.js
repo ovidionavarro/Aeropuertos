@@ -1,2 +1,4 @@
 import Client from './client.js'
-export { Client }
+import User from './user.js'
+import Role from './role.js'
+export { Client, User, Role }
