@@ -1,5 +1,5 @@
 import { User } from '../models/index.js'
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 export default class AdminAuthController {
   static login = async (req, res) => {
