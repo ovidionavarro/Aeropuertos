@@ -1,6 +1,6 @@
 import { DataTypes } from 'sequelize'
-import db from '../db/connection.js'
-import InstalationType from './tipos/instalation-type.js'
+import db from '../../db/connection.js'
+import InstalationType from './instalation-type.js'
 import AirPort from './airport.js'
 const Instalation = db.define('Instalation', {
   id: {

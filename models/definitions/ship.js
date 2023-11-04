@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize'
-import db from '../db/connection.js'
-import Client from './cliente.js'
-import Classification from './tipos/classification-ship.js'
+import db from '../../db/connection.js'
+import Client from './client.js'
+import Classification from './classification-ship.js'
 const Ship = db.define('Ship', {
   id: {
     type: DataTypes.INTEGER.UNSIGNED,

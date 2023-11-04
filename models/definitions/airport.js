@@ -1,5 +1,5 @@
 import { DataTypes } from 'sequelize'
-import db from '../db/connection.js'
+import db from '../../db/connection.js'
 const AirPort = db.define('AirPort', {
   id: {
     type: DataTypes.INTEGER.UNSIGNED,

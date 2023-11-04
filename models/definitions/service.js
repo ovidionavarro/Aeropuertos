@@ -1,8 +1,7 @@
 import { DataTypes } from 'sequelize'
-import db from '../db/connection.js'
-import ReparationType from './tipos/reparation-type.js'
-
-const Reparation = db.define('Reparation', {
+import db from '../../db/connection.js'
+import Instalation from './instalation.js'
+const Service = db.define('Service', {
   id: {
     type: DataTypes.INTEGER.UNSIGNED,
     autoIncrement: true,
@@ -13,18 +12,18 @@ const Reparation = db.define('Reparation', {
     type: DataTypes.STRING,
     allowNull: false
   },
-  priceHour: {
+  price: {
     type: DataTypes.NUMBER,
     allowNull: false
   },
-  idTypeReparation: {
-    type: DataTypes.SMALLINT,
+  idInstalation: {
+    type: DataTypes.INTEGER.UNSIGNED,
     allowNull: false,
     references: {
-      model: ReparationType,
+      model: Instalation,
       key: 'id'
     }
   }
 })
 
-export default Reparation
+export default Service

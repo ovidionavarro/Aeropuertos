@@ -1,8 +1,8 @@
 import { DataTypes } from 'sequelize'
-import db from '../db/connection.js'
-import PassengerType from './tipos/passenger-type.js'
+import db from '../../db/connection.js'
+import PassengerType from './passenger-type.js'
 import Ship from './ship.js'
-import Client from './cliente.js'
+import Client from './client.js'
 
 const Passenger = db.define('Passenger', {
   ship: {

@@ -1,6 +1,6 @@
 import { DataTypes } from 'sequelize'
-import db from '../db/connection.js'
-import Client from './cliente.js'
+import db from '../../db/connection.js'
+import Client from './client.js'
 import Service from './service.js'
 
 const ContractService = db.define('ContractService', {

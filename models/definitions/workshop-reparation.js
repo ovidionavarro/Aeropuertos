@@ -1,5 +1,5 @@
 import { DataTypes } from 'sequelize'
-import db from '../db/connection.js'
+import db from '../../db/connection.js'
 import Ship from './ship.js'
 import Reparation from './reparation.js'
 
