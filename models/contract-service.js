@@ -1,35 +1,36 @@
 import { DataTypes } from 'sequelize'
 import db from '../db/connection.js'
-import Nave from './nave.js'
-import Aeropuerto from './aeropuerto.js'
+import Client from './cliente.js'
+import Service from './service.js'
 
-const Vuelo = db.define('Vuelo', {
-  nave: {
+const ContractService = db.define('ContractService', {
+  service: {
     type: DataTypes.INTEGER.UNSIGNED,
     primaryKey: true,
     allowNull: false,
     references: {
-      model: Nave,
+      model: Service,
+      key: 'id'
+    }
+  },
+  client: {
+    type: DataTypes.INTEGER.UNSIGNED,
+    primaryKey: true,
+    allowNull: false,
+    references: {
+      model: Client,
       key: 'id'
     }
   },
   fecha: {
     type: DataTypes.TIME,
-    primaryKey: true,
-    allowNull: false
-  },
-  aeropuerto: {
-    type: DataTypes.INTEGER.UNSIGNED,
     allowNull: false,
-    references: {
-      model: Aeropuerto,
-      key: 'id'
-    }
+    primaryKey: true
   },
-  fechaPlanificada: {
-    type: DataTypes.TIME,
+  valuation: {
+    type: DataTypes.SMALLINT,
     allowNull: false
   }
 })
 
-export default Vuelo
+export default ContractService

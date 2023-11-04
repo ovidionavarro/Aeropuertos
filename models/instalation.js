@@ -1,8 +1,8 @@
 import { DataTypes } from 'sequelize'
 import db from '../db/connection.js'
-import TipoInst from './tipos/tipo-instalacion.js'
-import Aeropuerto from './aeropuerto.js'
-const Instalacion = db.define('Instalacion', {
+import InstalationType from './tipos/instalation-type.js'
+import AirPort from './airport.js'
+const Instalation = db.define('Instalation', {
   id: {
     type: DataTypes.INTEGER.UNSIGNED,
     autoIncrement: true,
@@ -14,26 +14,26 @@ const Instalacion = db.define('Instalacion', {
     unique: true,
     allowNull: false
   },
-  ubicacion: {
+  location: {
     type: DataTypes.STRING(255),
     allowNull: false
   },
-  tipoInst: {
+  idTypeInst: {
     type: DataTypes.SMALLINT,
     allowNull: false,
     references: {
-      model: TipoInst,
-      key: 'tipoId'
+      model: InstalationType,
+      key: 'id'
     }
   },
-  idAeropuerto: {
+  idAirport: {
     type: DataTypes.INTEGER.UNSIGNED,
     allowNull: false,
     references: {
-      model: Aeropuerto,
+      model: AirPort,
       key: 'id'
     }
   }
 })
 
-export default Instalacion
+export default Instalation

@@ -1,6 +1,6 @@
 import { DataTypes } from 'sequelize'
 import db from '../db/connection.js'
-const Aeropuerto = db.define('Aeropuerto', {
+const AirPort = db.define('AirPort', {
   id: {
     type: DataTypes.INTEGER.UNSIGNED,
     autoIncrement: true,
@@ -17,11 +17,11 @@ const Aeropuerto = db.define('Aeropuerto', {
     unique: true,
     allowNull: false
   },
-  Direccion: {
+  Direction: {
     type: DataTypes.STRING(255),
     unique: true,
     allowNull: false
   }
 })
 
-export default Aeropuerto
+export default AirPort

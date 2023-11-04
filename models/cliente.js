@@ -1,9 +1,9 @@
 import { DataTypes } from 'sequelize'
 import db from '../db/connection.js'
-import TipoCliente from './tipos/tipo-cliente.js'
-import { defaultCliente } from '../config/defaultValues.js'
+import ClientType from './tipos/client-type.js'
+import { defaultClient } from '../config/defaultValues.js'
 
-const Cliente = db.define('Cliente', {
+const Client = db.define('Client', {
   id: {
     type: DataTypes.INTEGER.UNSIGNED,
     autoIncrement: true,
@@ -14,28 +14,28 @@ const Cliente = db.define('Cliente', {
     type: DataTypes.STRING(255),
     allowNull: false
   },
-  nacionalidad: {
+  nacionality: {
     type: DataTypes.STRING(50),
     allowNull: false
   },
-  tipoClient: {
+  idTypeClient: {
     type: DataTypes.SMALLINT,
     allowNull: false,
     references: {
-      model: TipoCliente,
-      key: 'tipoId'
+      model: ClientType,
+      key: 'id'
     }
   }
 }, {
   hooks: {
     afterSync: async () => {
-      const count = await Cliente.count()
+      const count = await Client.count()
       if (count === 0) {
-        await Cliente.bulkCreate(defaultCliente)
+        await Client.bulkCreate(defaultClient)
       }
     }
   },
   timestamps: false
 })
 
-export default Cliente
+export default Client

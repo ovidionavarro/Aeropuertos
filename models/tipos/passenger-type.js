@@ -1,15 +1,15 @@
 import { DataTypes } from 'sequelize'
 import db from '../../db/connection.js'
-import { defaultTipoCliente } from '../../config/defaultValues.js'
+import { defaultPassengerType } from '../../config/defaultValues.js'
 
-const TipoCliente = db.define('TipoCliente', {
-  tipoId: {
+const Passengertype = db.define('PassengerType', {
+  id: {
     type: DataTypes.SMALLINT,
     primaryKey: true,
     autoIncrement: true,
     allowNull: false
   },
-  tipoName: {
+  name: {
     type: DataTypes.STRING(50),
     allowNull: false,
     unique: true
@@ -17,12 +17,12 @@ const TipoCliente = db.define('TipoCliente', {
 }, {
   hooks: {
     afterSync: async () => {
-      const count = await TipoCliente.count()
+      const count = await Passengertype.count()
       if (count === 0) {
-        await TipoCliente.bulkCreate(defaultTipoCliente)
+        await Passengertype.bulkCreate(defaultPassengerType)
       }
     }
   },
   timestamps: false
 })
-export default TipoCliente
+export default Passengertype

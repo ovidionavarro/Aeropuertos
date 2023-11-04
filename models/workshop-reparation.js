@@ -1,52 +1,52 @@
 import { DataTypes } from 'sequelize'
 import db from '../db/connection.js'
-import Nave from './nave.js'
-import Reparacion from './reparacion.js'
+import Ship from './ship.js'
+import Reparation from './reparation.js'
 
-const TallerReparacion = db.define('TallerReparacion', {
-  nave: {
+const WorkShopReparation = db.define('WorkShopReparation', {
+  ship: {
     type: DataTypes.INTEGER.UNSIGNED,
     primaryKey: true,
     allowNull: false,
     references: {
-      model: Nave,
+      model: Ship,
       key: 'id'
     }
   },
-  fechaInit: {
+  dateInit: {
     type: DataTypes.TIME,
     allowNull: false,
     primaryKey: true
   },
-  fechaFin: {
+  dateFin: {
     type: DataTypes.TIME,
     allowNull: false
   },
-  reparacion: {
+  idReparation: {
     type: DataTypes.INTEGER.UNSIGNED,
     primaryKey: true,
     allowNull: false,
     references: {
-      model: Reparacion,
+      model: Reparation,
       key: 'id'
     }
   },
-  tiemo: {
+  time: {
     type: DataTypes.NUMBER,
     allowNull: false
   },
-  aumento: {
+  increase: {
     type: DataTypes.NUMBER,
     allowNull: false
   },
-  descuento: {
+  discount: {
     type: DataTypes.NUMBER,
     allowNull: false
   },
-  estado: {
+  status: {
     type: DataTypes.STRING(255),
     allowNull: false
   }
 })
 
-export default TallerReparacion
+export default WorkShopReparation

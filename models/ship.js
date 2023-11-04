@@ -1,8 +1,8 @@
 import { DataTypes } from 'sequelize'
 import db from '../db/connection.js'
-import Cliente from './cliente.js'
-import Clasificacion from './tipos/clasificacion-naves.js'
-const Nave = db.define('Nave', {
+import Client from './cliente.js'
+import Classification from './tipos/classification-ship.js'
+const Ship = db.define('Ship', {
   id: {
     type: DataTypes.INTEGER.UNSIGNED,
     autoIncrement: true,
@@ -14,15 +14,15 @@ const Nave = db.define('Nave', {
     unique: true,
     allowNull: false
   },
-  estado: {
+  status: {
     type: DataTypes.STRING(255),
     allowNull: false
   },
-  capacidadCarga: {
+  capacity: {
     type: DataTypes.INTEGER.UNSIGNED,
     allowNull: false
   },
-  numTrip: {
+  numberCrews: {
     type: DataTypes.INTEGER.UNSIGNED,
     allowNull: false
   },
@@ -31,22 +31,22 @@ const Nave = db.define('Nave', {
     allowNull: false
   },
 
-  propietario: {
+  owner: {
     type: DataTypes.INTEGER.UNSIGNED,
     allowNull: false,
     references: {
-      model: Cliente,
+      model: Client,
       key: 'id'
     }
   },
-  clasificacion: {
+  clasification: {
     type: DataTypes.SMALLINT,
     allowNull: false,
     references: {
-      model: Clasificacion,
-      key: 'tipoId'
+      model: Classification,
+      key: 'id'
     }
   }
 })
 
-export default Nave
+export default Ship

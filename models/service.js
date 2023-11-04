@@ -1,29 +1,29 @@
 import { DataTypes } from 'sequelize'
 import db from '../db/connection.js'
-import Instalacion from './instalacion.js'
-const Servicio = db.define('Servicio', {
+import Instalation from './instalation.js'
+const Service = db.define('Service', {
   id: {
     type: DataTypes.INTEGER.UNSIGNED,
     autoIncrement: true,
     primaryKey: true,
     allowNull: false
   },
-  descripcion: {
+  description: {
     type: DataTypes.STRING,
     allowNull: false
   },
-  precio: {
+  price: {
     type: DataTypes.NUMBER,
     allowNull: false
   },
-  instalacion: {
+  idInstalation: {
     type: DataTypes.INTEGER.UNSIGNED,
     allowNull: false,
     references: {
-      model: Instalacion,
+      model: Instalation,
       key: 'id'
     }
   }
 })
 
-export default Servicio
+export default Service

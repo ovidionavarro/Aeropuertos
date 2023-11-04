@@ -1,7 +1,10 @@
 import { getHash } from '../utils.js'
 export const defaultRoles = [{ roleName: 'admin' }]
-export const defaultTipoCliente = [{ tipoName: 'pasajero' }]
-export const defaultCliente = [{ name: 'pedro', nacionalidad: 'cubano', tipoClient: 1 }]
+export const defaultClientType = [{ name: 'pasajero' }]
+export const defaultClient = [{ name: 'pedro', nacionality: 'cubano', idTypeClient: 1 }]
+export const defaultPassengerType = [{ name: ' captian' }]
+export const defaultInstalationType = [{ name: ' mercado ' }]
+
 let pass = ''
 try {
   pass = await getHash('admin')

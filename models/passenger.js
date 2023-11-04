@@ -1,40 +1,40 @@
 import { DataTypes } from 'sequelize'
 import db from '../db/connection.js'
-import TipoPasajero from './tipos/tipo_pasajero'
-import Nave from './nave.js'
-import Cliente from './cliente'
+import PassengerType from './tipos/passenger-type.js'
+import Ship from './ship.js'
+import Client from './cliente.js'
 
-const Pasaje = db.define('Pasaje', {
-  nave: {
+const Passenger = db.define('Passenger', {
+  ship: {
     type: DataTypes.INTEGER.UNSIGNED,
     primaryKey: true,
     allowNull: false,
     references: {
-      model: Nave,
+      model: Ship,
       key: 'id'
     }
   },
-  fecha: {
+  date: {
     type: DataTypes.TIME,
     primaryKey: true,
     allowNull: false
   },
-  cliente: {
+  idClient: {
     type: DataTypes.INTEGER.UNSIGNED,
     primaryKey: true,
     allowNull: false,
     references: {
-      model: Cliente,
+      model: Client,
       key: 'id'
     }
   },
-  tipoPasajero: {
+  idTypePassenger: {
     type: DataTypes.SMALLINT,
     allowNull: false,
     references: {
-      model: TipoPasajero,
-      key: 'tipoId'
+      model: PassengerType,
+      key: 'id'
     }
   }
 })
-export default Pasaje
+export default Passenger

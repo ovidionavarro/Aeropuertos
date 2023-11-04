@@ -1,29 +1,29 @@
 import { DataTypes } from 'sequelize'
 import db from '../db/connection.js'
-import TallerReparacion from './taller-reparaciones.js'
+import WorkShopReparation from './workshop-reparation.js'
 
-const ValoracionRep = db.define('valoracionRep', {
-  nave: {
+const ValuationReparation = db.define('ValuationReparation', {
+  ship: {
     type: DataTypes.INTEGER.UNSIGNED,
     allowNull: false,
     primaryKey: true,
     references: {
-      model: TallerReparacion,
-      key: 'nave'
+      model: WorkShopReparation,
+      key: 'ship'
     }
   },
-  fecha: {
+  date: {
     type: DataTypes.TIME,
     allowNull: false,
     primaryKey: true,
     references: {
-      model: TallerReparacion,
-      key: 'fechaInit'
+      model: WorkShopReparation,
+      key: 'dateInit'
     }
   },
-  valoracion: {
+  valuation: {
     type: DataTypes.SMALLINT,
     allowNull: false
   }
 })
-export default ValoracionRep
+export default ValuationReparation
