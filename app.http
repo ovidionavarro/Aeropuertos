@@ -1,22 +1,26 @@
-GET http://localhost:1234/clientes/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZUlkIjoxLCJpYXQiOjE2OTg0NTM0OTksImV4cCI6MTY5OTA1ODI5OX0.g6Ud53LRsOaItPVJ88S-BLDaIKsXmVdW9UutwOpyarA
+@host = http://localhost:1234
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjk5MTE2ODQ3LCJleHAiOjE2OTk3MjE2NDd9.sGHfWrDb_K6BC6J6XLnvshNIjlRCjRhqbxJnfSycl1o
+###
+GET {{host}}/clients/
+Authorization: Bearer {{token}}
 ###
 
-POST http://localhost:1234/clientes
+POST {{host}}/clients/
+Authorization: Bearer {{token}}
 Content-Type:application/json
 
 {
-    "nombre": "Cliente2"
+    "nombre": "Cliente4"
 }
 ###
-POST http://localhost:1234/login
+POST {{host}}/login
 Content-Type:application/json
 
 {
 }
 
 ###
-POST http://localhost:1234/admin/login
+POST {{host}}/admin/login
 Content-Type:application/json
 
 {

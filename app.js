@@ -5,6 +5,7 @@ import dbConnect from './db/init.js'
 import { AdminAuthRouter, AuthRouter, ClientRouter } from './routes/index.js'
 import authenticate from './middlewares/authenticate.js'
 import authorize from './middlewares/authorize.js'
+import { roles } from './config/defaultValues.js'
 const PORT = process.env.PORT ?? 1234
 
 // conectar con la base de datos
@@ -14,7 +15,7 @@ const app = express()
 app.use(express.json())
 app.use(cors())
 
-app.use('/clientes', authenticate, authorize('admin'), ClientRouter)
+app.use('/clients', authenticate, authorize(roles.admin), ClientRouter)
 app.use('/login', AuthRouter)
 app.use('/admin/login', AdminAuthRouter)
 

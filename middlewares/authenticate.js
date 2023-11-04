@@ -5,8 +5,13 @@ const authenticate = (req, res, next) => {
   if (authorization && authorization.toLowerCase().startsWith('bearer')) {
     token = authorization.substring(7)
   }
-  const decodedToken = jwt.verify(token, process.env.SECRET)
-  if (!token || !decodedToken.id || !decodedToken.roleId) {
+  let decodedToken = {}
+  try {
+    decodedToken = jwt.verify(token, process.env.SECRET)
+  } catch (e) {
+    return res.status(401).json({ error: 'Invalid token' })
+  }
+  if (!decodedToken.id || !decodedToken.roleId) {
     return res.status(401).json({ error: 'Invalid token' })
   }
   const { id, roleId } = decodedToken
