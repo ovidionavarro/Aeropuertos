@@ -1,41 +1,34 @@
-import { DataTypes } from 'sequelize'
-import db from '../db/connection.js'
-import Role from './role.js'
-import { defaultAdmin } from '../config/defaultValues.js'
-const User = db.define('Usuario', {
-  id: {
-    type: DataTypes.INTEGER.UNSIGNED,
-    autoIncrement: true,
-    primaryKey: true,
-    allowNull: false
-  },
-  username: {
-    type: DataTypes.STRING(255),
-    unique: true,
-    allowNull: false
-  },
-  passwordHash: {
-    type: DataTypes.STRING(255),
-    allowNull: false
-  },
-  roleId: {
-    type: DataTypes.SMALLINT,
-    allowNull: false,
-    references: {
-      model: Role,
-      key: 'roleId'
-    }
-  }
-}, {
-  hooks: {
-    afterSync: async () => {
-      const count = await User.count()
-      if (count === 0) {
-        await User.bulkCreate(defaultAdmin)
-      }
-    }
-  },
-  timestamps: false
-})
+import { User } from './definitions/index.js'
 
-export default User
+export class UserModel {
+  static findByID = async (id) => {
+    const result = await User.findOne({ where: { id } })
+    const { dataValues } = result ?? {}
+    return dataValues
+  }
+
+  static find = async (attr) => {
+    const users = await User.findAll({ where: attr })
+    const result = users.map((user) => {
+      const { dataValues } = user
+      return dataValues
+    })
+    return result
+  }
+
+  static getAll = async () => {
+    const users = await this.find()
+    return users
+  }
+
+  static create = async (user) => {
+    const _user = new User(user)
+    await _user.save()
+    return _user
+  }
+
+  static delete = async (id) => {
+    const result = await User.destroy({ where: { id } })
+    return result !== 0
+  }
+}

@@ -1,6 +1,16 @@
 import { Router } from 'express'
 import ClientController from '../controllers/clients.js'
-const router = Router()
-router.get('/', ClientController.getAll)
-router.post('/', ClientController.create)
-export default router
+import authenticate from '../middlewares/authenticate.js'
+import authorize from '../middlewares/authorize.js'
+import { roles } from '../config/defaultValues.js'
+
+const ClientRouter = (Model) => {
+  const router = Router()
+  const clientController = new ClientController(Model)
+  router.use(authenticate)
+  router.use(authorize(roles.admin))
+  router.get('/', clientController.getAll.bind(clientController))
+  router.post('/', clientController.create.bind(clientController))
+  return router
+}
+export default ClientRouter

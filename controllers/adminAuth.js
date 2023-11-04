@@ -1,11 +1,14 @@
-import { User } from '../models/index.js'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 export default class AdminAuthController {
-  static login = async (req, res) => {
+  constructor(Model) {
+    this.UserModel = Model
+  }
+
+  login = async (req, res) => {
     const { body } = req
     const { username, password } = body
-    const user = await User.findOne({ where: { username } })
+    const [user] = await this.UserModel.find({ username })
     const correctPass = user === null ? false : await bcrypt.compare(password, user.passwordHash)
     if (!correctPass) {
       return res.status(401).json({ error: 'incorrect username or password' })

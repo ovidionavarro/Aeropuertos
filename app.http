@@ -1,5 +1,5 @@
 @host = http://localhost:1234
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjk5MTE2ODQ3LCJleHAiOjE2OTk3MjE2NDd9.sGHfWrDb_K6BC6J6XLnvshNIjlRCjRhqbxJnfSycl1o
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZUlkIjoxLCJpYXQiOjE2OTkxMjU1ODMsImV4cCI6MTY5OTczMDM4M30.gKNin2j1vAO_h95DsHdlC-z7k0M9lwZsqxLKAOl146Q
 ###
 GET {{host}}/clients/
 Authorization: Bearer {{token}}
@@ -9,8 +9,9 @@ POST {{host}}/clients/
 Authorization: Bearer {{token}}
 Content-Type:application/json
 
+
 {
-    "nombre": "Cliente4"
+    "name": "Cliente1"
 }
 ###
 POST {{host}}/login
