@@ -14,7 +14,7 @@ const app = express()
 app.use(express.json())
 app.use(cors())
 
-app.use('/clientes', authenticate, authorize('admin'), ClientRouter)
+app.use('/clientes', ClientRouter)
 app.use('/login', AuthRouter)
 app.use('/admin/login', AdminAuthRouter)
 
