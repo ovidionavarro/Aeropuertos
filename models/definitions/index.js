@@ -7,8 +7,8 @@ import ClientType from './client-type.js'
 import ContractService from './contract-service.js'
 import Flight from './flight.js'
 import Implication from './implication-reparation.js'
-import InstalationType from './installation-type.js'
-import Instalation from './installation.js'
+import InstallationType from './installation-type.js'
+import Installation from './installation.js'
 import Passengertype from './passenger-type.js'
 import Passenger from './passenger.js'
 import ReparationType from './reparation-type.js'
@@ -27,8 +27,8 @@ export {
   ContractService,
   Flight,
   Implication,
-  InstalationType,
-  Instalation,
+  InstallationType,
+  Installation,
   Passengertype,
   Passenger,
   ReparationType,

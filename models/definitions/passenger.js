@@ -17,7 +17,7 @@ const Passenger = db.define(
       }
     },
     date: {
-      type: DataTypes.TIME,
+      type: DataTypes.DATE,
       primaryKey: true,
       allowNull: false
     },
