@@ -12,7 +12,7 @@ const AirPort = db.define('AirPort', {
     unique: true,
     allowNull: false
   },
-  posGeo: {
+  geoPos: {
     type: DataTypes.STRING(255),
     unique: true,
     allowNull: false

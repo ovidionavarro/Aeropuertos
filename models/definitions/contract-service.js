@@ -22,8 +22,8 @@ const ContractService = db.define('ContractService', {
       key: 'id'
     }
   },
-  fecha: {
-    type: DataTypes.TIME,
+  date: {
+    type: DataTypes.DATE,
     allowNull: false,
     primaryKey: true
   },

@@ -1,8 +1,8 @@
 import { DataTypes } from 'sequelize'
 import db from '../../db/connection.js'
-import InstalationType from './instalation-type.js'
+import InstalationType from './installation-type.js'
 import AirPort from './airport.js'
-const Instalation = db.define('Instalation', {
+const Installation = db.define('Instalation', {
   id: {
     type: DataTypes.INTEGER.UNSIGNED,
     autoIncrement: true,
@@ -36,4 +36,4 @@ const Instalation = db.define('Instalation', {
   }
 })
 
-export default Instalation
+export default Installation

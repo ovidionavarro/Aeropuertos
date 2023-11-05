@@ -13,11 +13,11 @@ const Client = db.define('Client', {
     type: DataTypes.STRING(255),
     allowNull: false
   },
-  nacionality: {
+  nationality: {
     type: DataTypes.STRING(50),
     allowNull: false
   },
-  idTypeClient: {
+  idClientType: {
     type: DataTypes.SMALLINT,
     allowNull: false,
     references: {

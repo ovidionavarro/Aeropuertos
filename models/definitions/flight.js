@@ -14,7 +14,7 @@ const Flight = db.define('Flight', {
     }
   },
   date: {
-    type: DataTypes.TIME,
+    type: DataTypes.DATE,
     primaryKey: true,
     allowNull: false
   },
@@ -27,7 +27,7 @@ const Flight = db.define('Flight', {
     }
   },
   plannedDate: {
-    type: DataTypes.TIME,
+    type: DataTypes.DATE,
     allowNull: false
   }
 })

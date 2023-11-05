@@ -12,12 +12,12 @@ const Implication = db.define('Implication', {
     }
   },
   date1: {
-    type: DataTypes.TIME,
+    type: DataTypes.DATE,
     allowNull: false,
     primaryKey: true,
     references: {
       model: WorkShopReparation,
-      key: 'dateInit'
+      key: 'startDate'
     }
   },
   ship2: {
@@ -30,12 +30,12 @@ const Implication = db.define('Implication', {
     }
   },
   date2: {
-    type: DataTypes.TIME,
+    type: DataTypes.DATE,
     allowNull: false,
     primaryKey: true,
     references: {
       model: WorkShopReparation,
-      key: 'dateInit'
+      key: 'startDate'
     }
   }
 })

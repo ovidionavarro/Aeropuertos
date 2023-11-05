@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize'
 import db from '../../db/connection.js'
 
-const InstalationType = db.define('InstalationType', {
+const InstallationType = db.define('InstallationType', {
   id: {
     type: DataTypes.SMALLINT,
     primaryKey: true,
@@ -14,4 +14,4 @@ const InstalationType = db.define('InstalationType', {
     unique: true
   }
 })
-export default InstalationType
+export default InstallationType

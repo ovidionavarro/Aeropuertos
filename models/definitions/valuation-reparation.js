@@ -13,12 +13,12 @@ const ValuationReparation = db.define('ValuationReparation', {
     }
   },
   date: {
-    type: DataTypes.TIME,
+    type: DataTypes.DATE,
     allowNull: false,
     primaryKey: true,
     references: {
       model: WorkShopReparation,
-      key: 'dateInit'
+      key: 'startDate'
     }
   },
   valuation: {

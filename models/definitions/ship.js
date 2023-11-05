@@ -39,7 +39,7 @@ const Ship = db.define('Ship', {
       key: 'id'
     }
   },
-  clasification: {
+  classification: {
     type: DataTypes.SMALLINT,
     allowNull: false,
     references: {

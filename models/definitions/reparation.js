@@ -17,7 +17,7 @@ const Reparation = db.define('Reparation', {
     type: DataTypes.FLOAT,
     allowNull: false
   },
-  idTypeReparation: {
+  idReparationType: {
     type: DataTypes.SMALLINT,
     allowNull: false,
     references: {

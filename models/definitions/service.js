@@ -1,6 +1,6 @@
 import { DataTypes } from 'sequelize'
 import db from '../../db/connection.js'
-import Instalation from './instalation.js'
+import Installation from './installation.js'
 const Service = db.define('Service', {
   id: {
     type: DataTypes.INTEGER.UNSIGNED,
@@ -20,7 +20,7 @@ const Service = db.define('Service', {
     type: DataTypes.INTEGER.UNSIGNED,
     allowNull: false,
     references: {
-      model: Instalation,
+      model: Installation,
       key: 'id'
     }
   }
