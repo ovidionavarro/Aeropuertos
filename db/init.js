@@ -8,7 +8,7 @@ const dbConnect = ({ alter }) => {
       throw new Error(err)
     })
 
-  db.sync({ alter, force: true })
+  db.sync({ alter })
     .then(() => console.log('DB sync ok'))
     .catch((err) => {
       throw new Error(err)

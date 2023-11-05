@@ -11,12 +11,13 @@ export default class ClientController {
   }
 
   create = async (req, res) => {
-    const result = validateClient(req.body)
-    console.log(result.data)
-    if (!result.success) {
+    // const result = validateClient(req.body)
+
+    /* if (!result.success) {
       return res.status(400).json({ error: JSON.parse(result.error.message) })
-    }
-    const client = await this.ClientModel.create(result.data)
+    } */
+    console.log(req.body)
+    const client = await this.ClientModel.create(req.body)
 
     res.status(201).json({ client })
   }

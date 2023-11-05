@@ -50,6 +50,7 @@ const WorkShopReparation = db.define(
       allowNull: false
     }
   },
+  { timestamps: false },
   {
     indexes: [
       {

@@ -1,5 +1,5 @@
 @host = http://localhost:1234
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZUlkIjoxLCJpYXQiOjE2OTkxMjU1ODMsImV4cCI6MTY5OTczMDM4M30.gKNin2j1vAO_h95DsHdlC-z7k0M9lwZsqxLKAOl146Q
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZUlkIjoxLCJpYXQiOjE2OTkxNTY2NzMsImV4cCI6MTY5OTc2MTQ3M30.oXywlXMp5NtFRfaWF8wWV0wP8ooCMMGqNpzCrnz01jM
 ###
 GET {{host}}/clients/
 Authorization: Bearer {{token}}
@@ -11,7 +11,9 @@ Content-Type:application/json
 
 
 {
-    "name": "Cliente1"
+    "name": "Cliente1",
+    "nationality": "aa",
+    "idClientType": 1
 }
 ###
 POST {{host}}/login
