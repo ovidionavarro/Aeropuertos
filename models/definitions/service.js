@@ -13,7 +13,7 @@ const Service = db.define('Service', {
     allowNull: false
   },
   price: {
-    type: DataTypes.NUMBER,
+    type: DataTypes.FLOAT,
     allowNull: false
   },
   idInstalation: {

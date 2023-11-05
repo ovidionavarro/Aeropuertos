@@ -14,7 +14,7 @@ const Reparation = db.define('Reparation', {
     allowNull: false
   },
   priceHour: {
-    type: DataTypes.NUMBER,
+    type: DataTypes.FLOAT,
     allowNull: false
   },
   idTypeReparation: {

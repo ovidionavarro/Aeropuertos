@@ -14,12 +14,12 @@ const WorkShopReparation = db.define('WorkShopReparation', {
     }
   },
   dateInit: {
-    type: DataTypes.TIME,
+    type: DataTypes.DATE,
     allowNull: false,
     primaryKey: true
   },
   dateFin: {
-    type: DataTypes.TIME,
+    type: DataTypes.DATE,
     allowNull: false
   },
   idReparation: {
@@ -32,15 +32,15 @@ const WorkShopReparation = db.define('WorkShopReparation', {
     }
   },
   time: {
-    type: DataTypes.NUMBER,
+    type: DataTypes.INTEGER.UNSIGNED,
     allowNull: false
   },
   increase: {
-    type: DataTypes.NUMBER,
+    type: DataTypes.FLOAT,
     allowNull: false
   },
   discount: {
-    type: DataTypes.NUMBER,
+    type: DataTypes.FLOAT,
     allowNull: false
   },
   status: {
