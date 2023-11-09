@@ -1,46 +1,40 @@
 import { DataTypes } from 'sequelize'
 import db from '../../db/connection.js'
-import WorkShopReparation from './workshop-reparation.js'
+import Ship from './ship.js'
+
 const Implication = db.define(
   'Implication',
   {
     ship1: {
       type: DataTypes.INTEGER.UNSIGNED,
-      allowNull: false,
       primaryKey: true,
+      allowNull: false,
       references: {
-        model: WorkShopReparation,
-        key: 'ship'
+        model: Ship,
+        key: 'id'
       }
     },
-    date1: {
+    startDate1: {
       type: DataTypes.DATE,
       allowNull: false,
-      primaryKey: true,
-      references: {
-        model: WorkShopReparation,
-        key: 'startDate'
-      }
+      primaryKey: true
     },
     ship2: {
       type: DataTypes.INTEGER.UNSIGNED,
-      allowNull: false,
       primaryKey: true,
+      allowNull: false,
       references: {
-        model: WorkShopReparation,
-        key: 'ship'
+        model: Ship,
+        key: 'id'
       }
     },
-    date2: {
+    startDate2: {
       type: DataTypes.DATE,
       allowNull: false,
-      primaryKey: true,
-      references: {
-        model: WorkShopReparation,
-        key: 'startDate'
-      }
+      primaryKey: true
     }
   },
   { timestamps: false }
 )
+
 export default Implication

@@ -26,7 +26,6 @@ const WorkShopReparation = db.define(
     },
     idReparation: {
       type: DataTypes.INTEGER.UNSIGNED,
-      primaryKey: true,
       allowNull: false,
       references: {
         model: Reparation,
@@ -50,15 +49,7 @@ const WorkShopReparation = db.define(
       allowNull: false
     }
   },
-  { timestamps: false },
-  {
-    indexes: [
-      {
-        unique: true,
-        fields: ['startDate']
-      }
-    ]
-  }
+  { timestamps: false }
 )
 
 export default WorkShopReparation
