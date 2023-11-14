@@ -19,6 +19,15 @@ const Client = db.define(
       type: DataTypes.STRING(50),
       allowNull: false
     },
+    username: {
+      type: DataTypes.STRING(255),
+      unique: true,
+      allowNull: false
+    },
+    passwordHash: {
+      type: DataTypes.STRING(255),
+      allowNull: false
+    },
     idClientType: {
       type: DataTypes.SMALLINT,
       allowNull: false,
