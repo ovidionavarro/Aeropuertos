@@ -7,7 +7,7 @@ import { UserModel, ClientModel } from './models/index.js'
 const PORT = process.env.PORT ?? 1234
 
 // conectar con la base de datos
-dbConnect({ alter: true })
+dbConnect({ alter: false })
 
 const app = express()
 app.use(express.json())

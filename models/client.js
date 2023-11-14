@@ -31,4 +31,10 @@ export class ClientModel {
     const result = await Client.destroy({ where: { id } })
     return result !== 0
   }
+
+  static update = async (attr, id) => {
+    const result = await Client.update(attr, { where: { id } })
+    const [ok] = result
+    return !!ok
+  }
 }
