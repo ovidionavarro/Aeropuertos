@@ -1,3 +1,5 @@
+import bcryptjs from 'bcryptjs'
+
 export default class ClientController {
   constructor(Model) {
     this.ClientModel = Model
@@ -9,13 +11,10 @@ export default class ClientController {
   }
 
   create = async (req, res) => {
-    // const result = validateClient(req.body)
-
-    /* if (!result.success) {
-      return res.status(400).json({ error: JSON.parse(result.error.message) })
-    } */
-    console.log(req.body)
-    const client = await this.ClientModel.create(req.body)
+    const body = req.body
+    const salt = bcryptjs.genSaltSync()
+    body.passwordHash = bcryptjs.hashSync(body.passwordHash, salt)
+    const client = await this.ClientModel.create(body)
 
     res.status(201).json({ client })
   }
@@ -36,11 +35,10 @@ export default class ClientController {
         msg: 'client not found'
       })
     }
-    const { name, nationality, idClientType, passwordHash, username } = req.body
-    const ok = await this.ClientModel.update(
-      { name, nationality, idClientType, passwordHash, username },
-      id
-    )
+    const body = req.body
+    const salt = bcryptjs.genSaltSync()
+    body.passwordHash = bcryptjs.hashSync(body.passwordHash, salt)
+    const ok = await this.ClientModel.update(body, id)
     if (!ok) {
       return res.status(400).json({
         msg: ok
