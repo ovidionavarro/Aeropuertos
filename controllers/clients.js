@@ -7,7 +7,11 @@ export default class ClientController {
 
   getAll = async (req, res) => {
     const clients = await this.ClientModel.find()
-    res.json(clients)
+    const _clients = clients.map(c => {
+      const { passwordHash, ..._client } = c
+      return _client
+    })
+    res.json(_clients)
   }
 
   create = async (req, res) => {
@@ -16,8 +20,8 @@ export default class ClientController {
     body.passwordHash = await getHash(password)
 
     const client = await this.ClientModel.create(body)
-
-    res.status(201).json({ client })
+    const { passwordHash, ..._client } = client
+    res.status(201).json({ _client })
   }
 
   delete = async (req, res) => {
