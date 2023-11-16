@@ -1,4 +1,5 @@
 import bcryptjs from 'bcryptjs'
+import { getHash } from '../utils.js'
 
 export default class ClientController {
   constructor(Model) {
@@ -12,8 +13,9 @@ export default class ClientController {
 
   create = async (req, res) => {
     const body = req.body
-    const salt = bcryptjs.genSaltSync()
-    body.passwordHash = bcryptjs.hashSync(body.passwordHash, salt)
+    const { password } = body
+    body.passwordHash = await getHash(password)
+
     const client = await this.ClientModel.create(body)
 
     res.status(201).json({ client })
