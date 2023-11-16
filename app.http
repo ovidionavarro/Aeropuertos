@@ -11,10 +11,22 @@ Content-Type:application/json
 
 
 {
-    "name": "Cliente2",
+    "name": "Cliente3",
     "nationality": "aa",
     "password" : "1234",
-    "username" : "c2",
+    "username" : "c3",
+    "idClientType": 1
+}
+###
+DELETE {{host}}/clients/2
+###
+PUT {{host}}/clients/3
+Content-Type:application/json
+
+{
+
+    "name": "Cliente3",
+    "username" : "cc3",
     "idClientType": 1
 }
 ###
@@ -22,8 +34,8 @@ POST {{host}}/login
 Content-Type:application/json
 
 {
-    "username": "admin",
-    "password" : "admin"
+    "username": "c1",
+    "password" : "1234"
 }
 
 ###

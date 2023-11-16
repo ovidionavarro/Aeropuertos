@@ -9,7 +9,8 @@ export default class AdminAuthController {
     const { body } = req
     const { username, password } = body
     const [user] = await this.UserModel.find({ username })
-    const correctPass = user === null ? false : await bcrypt.compare(password, user.passwordHash)
+    const correctPass =
+      typeof user === 'undefined' ? false : await bcrypt.compare(password, user.passwordHash)
     if (!correctPass) {
       return res.status(401).json({ error: 'incorrect username or password' })
     }

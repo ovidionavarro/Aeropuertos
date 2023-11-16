@@ -1,4 +1,3 @@
-import bcryptjs from 'bcryptjs'
 import { getHash } from '../utils.js'
 
 export default class ClientController {
@@ -23,7 +22,7 @@ export default class ClientController {
 
   delete = async (req, res) => {
     const { id } = req.params
-    const ok = await this.ClientModel.delete(id)
+    const ok = await this.ClientModel.delete({ id })
     res.json({
       ok
     })
@@ -31,16 +30,18 @@ export default class ClientController {
 
   update = async (req, res) => {
     const { id } = req.params
-    const user = await this.ClientModel.findByID(id)
+    const user = await this.ClientModel.findById({ id })
     if (typeof user === 'undefined') {
       return res.status(404).json({
         msg: 'client not found'
       })
     }
     const body = req.body
-    const salt = bcryptjs.genSaltSync()
-    body.passwordHash = bcryptjs.hashSync(body.passwordHash, salt)
-    const ok = await this.ClientModel.update(body, id)
+    const { password } = body
+    if (typeof password !== 'undefined') {
+      body.passwordHash = await getHash(password)
+    }
+    const ok = await this.ClientModel.update(body, { id })
     if (!ok) {
       return res.status(400).json({
         msg: ok
