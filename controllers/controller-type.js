@@ -1,4 +1,4 @@
-export default class GenericController {
+export default class ControllerType {
   constructor(Model) {
     this.Type = Model
   }

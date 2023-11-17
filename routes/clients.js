@@ -1,8 +1,8 @@
 import { Router } from 'express'
 import ClientController from '../controllers/clients.js'
-import authenticate from '../middlewares/authenticate.js'
-import authorize from '../middlewares/authorize.js'
-import { roles } from '../config/defaultValues.js'
+// import authenticate from '../middlewares/authenticate.js'
+// import authorize from '../middlewares/authorize.js'
+// import { roles } from '../config/defaultValues.js'
 
 const ClientRouter = (Model) => {
   const router = Router()
