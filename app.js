@@ -13,7 +13,8 @@ import {
   ShipRouter,
   ReparationRouter,
   ContractServiceRouter,
-  FlightRouter
+  FlightRouter,
+  PassengerRouter
 } from './routes/index.js'
 import {
   AirPort,
@@ -24,6 +25,7 @@ import {
   Flight,
   Installation,
   InstallationType,
+  Passenger,
   Passengertype,
   Reparation,
   ReparationType,
@@ -55,6 +57,7 @@ app.use('/ship', ShipRouter(new ModelConstructor(Ship)))
 app.use('/reparation', ReparationRouter(new ModelConstructor(Reparation)))
 app.use('/contractService', ContractServiceRouter(new ModelConstructor(ContractService)))
 app.use('/flight', FlightRouter(new ModelConstructor(Flight)))
+app.use('/passenger', PassengerRouter(new ModelConstructor(Passenger)))
 app.listen(PORT, () => {
   console.log(`http://localhost:${PORT}`)
 })

@@ -3,7 +3,7 @@ import db from '../../db/connection.js'
 import PassengerType from './passenger-type.js'
 import Ship from './ship.js'
 import Client from './client.js'
-
+// la nave hace referencia a un vuelo igual k la fecha
 const Passenger = db.define(
   'Passenger',
   {
