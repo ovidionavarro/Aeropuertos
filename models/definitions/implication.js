@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize'
 import db from '../../db/connection.js'
 import Ship from './ship.js'
-
+// la vane y la fecha tienen que perteneecer al conjunto de naves reparadas
 const Implication = db.define(
   'Implication',
   {

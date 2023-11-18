@@ -11,13 +11,17 @@ import {
   InstallationRouter,
   ServiceRouter,
   ShipRouter,
-  ReparationRouter
+  ReparationRouter,
+  ContractServiceRouter,
+  FlightRouter
 } from './routes/index.js'
 import {
   AirPort,
   Classification,
   Client,
   ClientType,
+  ContractService,
+  Flight,
   Installation,
   InstallationType,
   Passengertype,
@@ -32,7 +36,7 @@ const PORT = process.env.PORT ?? 1234
 
 // conectar con la base de datos
 dbConnect({ alter: false })
-// rol,contract-serv,flight,implication,passenger,valuacionrep,taller
+// rol,implication,passenger,valuacionrep,taller
 const app = express()
 app.use(express.json())
 app.use(cors())
@@ -49,7 +53,8 @@ app.use('/installation', InstallationRouter(new ModelConstructor(Installation)))
 app.use('/service', ServiceRouter(new ModelConstructor(Service)))
 app.use('/ship', ShipRouter(new ModelConstructor(Ship)))
 app.use('/reparation', ReparationRouter(new ModelConstructor(Reparation)))
-
+app.use('/contractService', ContractServiceRouter(new ModelConstructor(ContractService)))
+app.use('/flight', FlightRouter(new ModelConstructor(Flight)))
 app.listen(PORT, () => {
   console.log(`http://localhost:${PORT}`)
 })

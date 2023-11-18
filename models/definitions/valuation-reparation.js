@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize'
 import db from '../../db/connection.js'
 import Ship from './ship.js'
-
+// la nave tiene que pertenecer al conjunto de naves reparadas
 const ValuationReparation = db.define(
   'ValuationReparation',
   {

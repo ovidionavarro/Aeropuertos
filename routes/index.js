@@ -7,6 +7,8 @@ import InstallationRouter from './installation.js'
 import ReparationRouter from './reparation.js'
 import ServiceRouter from './service.js'
 import ShipRouter from './ship.js'
+import ContractServiceRouter from './contract-service.js'
+import FlightRouter from './flight.js'
 export {
   ClientRouter,
   AuthRouter,
@@ -16,5 +18,7 @@ export {
   ReparationRouter,
   InstallationRouter,
   ServiceRouter,
-  ShipRouter
+  ShipRouter,
+  ContractServiceRouter,
+  FlightRouter
 }
