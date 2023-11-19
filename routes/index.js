@@ -10,6 +10,8 @@ import ShipRouter from './ship.js'
 import ContractServiceRouter from './contract-service.js'
 import FlightRouter from './flight.js'
 import PassengerRouter from './passenger.js'
+import WorkShopRouter from './workshop-reparation.js'
+
 export {
   ClientRouter,
   AuthRouter,
@@ -22,5 +24,6 @@ export {
   ShipRouter,
   ContractServiceRouter,
   FlightRouter,
-  PassengerRouter
+  PassengerRouter,
+  WorkShopRouter
 }
