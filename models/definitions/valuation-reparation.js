@@ -20,7 +20,7 @@ const ValuationReparation = db.define(
       primaryKey: true
     },
     valuation: {
-      type: DataTypes.DATE,
+      type: DataTypes.INTEGER.UNSIGNED,
       allowNull: false
     }
   },

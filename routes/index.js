@@ -12,7 +12,7 @@ import FlightRouter from './flight.js'
 import PassengerRouter from './passenger.js'
 import WorkShopRouter from './workshop-reparation.js'
 import ImplicationRouter from './implication.js'
-
+import ValuationRepRouter from './valuation-reparation.js'
 export {
   ClientRouter,
   AuthRouter,
@@ -27,5 +27,6 @@ export {
   FlightRouter,
   PassengerRouter,
   WorkShopRouter,
-  ImplicationRouter
+  ImplicationRouter,
+  ValuationRepRouter
 }

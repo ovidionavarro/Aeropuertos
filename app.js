@@ -16,7 +16,8 @@ import {
   FlightRouter,
   PassengerRouter,
   WorkShopRouter,
-  ImplicationRouter
+  ImplicationRouter,
+  ValuationRepRouter
 } from './routes/index.js'
 import {
   AirPort,
@@ -35,6 +36,7 @@ import {
   Service,
   Ship,
   User,
+  ValuationReparation,
   WorkShopReparation
 } from './models/definitions/index.js'
 import ModelConstructor from './models/model-constructor.js'
@@ -42,7 +44,7 @@ const PORT = process.env.PORT ?? 1234
 
 // conectar con la base de datos
 dbConnect({ alter: false })
-// rol,implication,valuacionrep
+// rol,valuacionrep
 // flight eliminar lo de crear la fecha
 const app = express()
 app.use(express.json())
@@ -65,6 +67,7 @@ app.use('/flight', FlightRouter(new ModelConstructor(Flight)))
 app.use('/passenger', PassengerRouter(new ModelConstructor(Passenger)))
 app.use('/workshop', WorkShopRouter(new ModelConstructor(WorkShopReparation)))
 app.use('/implication', ImplicationRouter(new ModelConstructor(Implication)))
+app.use('/valuationReparation', ValuationRepRouter(new ModelConstructor(ValuationReparation)))
 app.listen(PORT, () => {
   console.log(`http://localhost:${PORT}`)
 })
