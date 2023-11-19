@@ -11,6 +11,7 @@ import ContractServiceRouter from './contract-service.js'
 import FlightRouter from './flight.js'
 import PassengerRouter from './passenger.js'
 import WorkShopRouter from './workshop-reparation.js'
+import ImplicationRouter from './implication.js'
 
 export {
   ClientRouter,
@@ -25,5 +26,6 @@ export {
   ContractServiceRouter,
   FlightRouter,
   PassengerRouter,
-  WorkShopRouter
+  WorkShopRouter,
+  ImplicationRouter
 }
