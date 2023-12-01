@@ -4,7 +4,15 @@
 GET {{host}}/clients/
 Authorization: Bearer {{token}}
 ###
+DELETE {{host}}/passenger/?shipOld=2&dateOld=2023-12-12&idClientOld=1
+###
+POST {{host}}/flights/
+Content-Type: application/json
 
+{
+    
+}
+###
 POST {{host}}/clients/
 Authorization: Bearer {{token}}
 Content-Type:application/json
@@ -38,6 +46,16 @@ Content-Type:application/json
     "password" : "1234"
 }
 
+###
+POST {{host}}/airport
+Content-Type:application/json
+
+{
+    "name": "c2",
+    "geoPos" : "aaaaa",
+    "Direction": "aaaaaa"
+
+}
 ###
 POST {{host}}/admin/login
 Content-Type:application/json

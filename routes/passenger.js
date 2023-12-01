@@ -1,9 +1,9 @@
 import { Router } from 'express'
 import PassengerController from '../controllers/passenger.js'
 
-const PassengerRouter = (Model) => {
+const PassengerRouter = (Passenger, Flight) => {
   const router = Router()
-  const passengerControl = new PassengerController(Model)
+  const passengerControl = new PassengerController(Passenger, Flight)
   router.get('/', passengerControl.getAll.bind(passengerControl))
   router.post('/', passengerControl.create.bind(passengerControl))
   router.delete('/', passengerControl.delete.bind(passengerControl))

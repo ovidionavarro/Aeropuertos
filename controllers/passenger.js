@@ -1,27 +1,26 @@
-import Flight from '../models/definitions/flight.js'
-
 export default class PassengerController {
-  constructor(Model) {
-    this.Type = Model
+  constructor(Passenger, Flight) {
+    this.Passenger = Passenger
+    this.Flight = Flight
   }
 
   getAll = async (req, res) => {
-    const _types = await this.Type.find()
+    const _types = await this.Passenger.find()
     res.json(_types)
   }
 
   create = async (req, res) => {
     const { ship, date, ...rest } = req.body
-    const body = { ship, date }
-    const dataValues = await Flight.findOne({ where: body })
+    const fl = { ship, date: new Date(date) }
+    const dataValues = await this.Flight.find(fl)
     if (!dataValues) {
       return res.status(401).json({
         msg: 'no existe ese vuelo'
       })
     }
     rest.ship = ship
-    rest.date = date
-    const type = await this.Type.create(rest)
+    rest.date = new Date(date)
+    const type = await this.Passenger.create(rest)
     res.status(201).json({
       type
     })
@@ -31,10 +30,10 @@ export default class PassengerController {
     const { shipOld, dateOld, idClientOld } = req.query
     const query = {
       ship: shipOld,
-      date: dateOld,
+      date: new Date(dateOld),
       idClient: idClientOld
     }
-    const ok = await this.Type.delete(query)
+    const ok = await this.Passenger.delete(query)
     res.json({
       ok
     })
@@ -47,7 +46,7 @@ export default class PassengerController {
       date: dateOld,
       idClient: idClientOld
     }
-    const type = await this.Type.findById(query)
+    const type = await this.Passenger.findById(query)
     if (typeof type === 'undefined') {
       return res.status(404).json({
         msg: 'type not found'
@@ -55,7 +54,7 @@ export default class PassengerController {
     }
     const { ship, date, ...body } = req.body
     const query2 = { ship, date }
-    const dataValues = await Flight.findOne({ where: query2 })
+    const dataValues = await this.Flight.findOne({ where: query2 })
     if (!dataValues) {
       return res.status(401).json({
         msg: 'no existe ese vuelo'
@@ -63,7 +62,7 @@ export default class PassengerController {
     }
     body.ship = ship
     body.date = date
-    const ok = await this.Type.update(body, query)
+    const ok = await this.Passenger.update(body, query)
     if (!ok) {
       return res.status(400).json({
         msg: ok

@@ -64,7 +64,10 @@ app.use('/ship', ShipRouter(new ModelConstructor(Ship)))
 app.use('/reparation', ReparationRouter(new ModelConstructor(Reparation)))
 app.use('/contractService', ContractServiceRouter(new ModelConstructor(ContractService)))
 app.use('/flight', FlightRouter(new ModelConstructor(Flight)))
-app.use('/passenger', PassengerRouter(new ModelConstructor(Passenger)))
+app.use(
+  '/passenger',
+  PassengerRouter(new ModelConstructor(Passenger), new ModelConstructor(Flight))
+)
 app.use('/workshop', WorkShopRouter(new ModelConstructor(WorkShopReparation)))
 app.use('/implication', ImplicationRouter(new ModelConstructor(Implication)))
 app.use('/valuationReparation', ValuationRepRouter(new ModelConstructor(ValuationReparation)))
