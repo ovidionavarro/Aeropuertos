@@ -69,8 +69,17 @@ app.use(
   PassengerRouter(new ModelConstructor(Passenger), new ModelConstructor(Flight))
 )
 app.use('/workshop', WorkShopRouter(new ModelConstructor(WorkShopReparation)))
-app.use('/implication', ImplicationRouter(new ModelConstructor(Implication)))
-app.use('/valuationReparation', ValuationRepRouter(new ModelConstructor(ValuationReparation)))
+app.use(
+  '/implication',
+  ImplicationRouter(new ModelConstructor(Implication), new ModelConstructor(WorkShopReparation))
+)
+app.use(
+  '/valuationReparation',
+  ValuationRepRouter(
+    new ModelConstructor(ValuationReparation),
+    new ModelConstructor(WorkShopReparation)
+  )
+)
 app.listen(PORT, () => {
   console.log(`http://localhost:${PORT}`)
 })

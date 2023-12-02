@@ -1,9 +1,9 @@
 import { Router } from 'express'
 import ValuationRepController from '../controllers/valuation-reparation.js'
 
-const ValuationRepRouter = (Model) => {
+const ValuationRepRouter = (Valuation, WorkShopReparation) => {
   const router = Router()
-  const valuationControl = new ValuationRepController(Model)
+  const valuationControl = new ValuationRepController(Valuation, WorkShopReparation)
   router.get('/', valuationControl.getAll.bind(valuationControl))
   router.post('/', valuationControl.create.bind(valuationControl))
   router.delete('/', valuationControl.delete.bind(valuationControl))

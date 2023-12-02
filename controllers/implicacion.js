@@ -1,8 +1,7 @@
-import WorkShopReparation from '../models/definitions/workshop-reparation.js'
-
 export default class ImplicationController {
-  constructor(Model) {
-    this.Type = Model
+  constructor(Implication, WorkshopReparation) {
+    this.Implication = Implication
+    this.WorkShopReparation = WorkshopReparation
   }
 
   getAll = async (req, res) => {
@@ -14,20 +13,20 @@ export default class ImplicationController {
     const { ship1, startDate1, ship2, startDate2 } = req.body
     const query1 = { ship: ship1, startDate: startDate1 }
     const query2 = { ship: ship2, startDate: startDate2 }
-    const rep1 = await WorkShopReparation.findOne({ where: query1 })
+    const rep1 = await this.WorkShopReparation.find(query1)
     if (!rep1) {
       return res.status(401).json({
         msg: 'nave1 y fecha1 de reparacion incorrecta'
       })
     }
-    const rep2 = await WorkShopReparation.findOne({ where: query2 })
+    const rep2 = await this.WorkShopReparation.find(query2)
     if (!rep2) {
       return res.status(401).json({
         msg: 'nave2 y fecha2 de reparacion incorrecta'
       })
     }
     const body = { ship1, startDate1, ship2, startDate2 }
-    const type = await this.Type.create(body)
+    const type = await this.Implication.create(body)
     res.status(201).json({
       type
     })
@@ -36,7 +35,7 @@ export default class ImplicationController {
   delete = async (req, res) => {
     const { ship1, startDate1, ship2, startDate2 } = req.query
     const query = { ship1, startDate1, ship2, startDate2 }
-    const ok = await this.Type.delete(query)
+    const ok = await this.Implication.delete(query)
     res.json({
       ok
     })
@@ -50,7 +49,7 @@ export default class ImplicationController {
       ship2: ship2Old,
       startDate2: startDate2Old
     }
-    const type = await this.Type.findById(query)
+    const type = await this.Implication.findById(query)
     if (typeof type === 'undefined') {
       return res.status(404).json({
         msg: 'type not found'
@@ -59,20 +58,20 @@ export default class ImplicationController {
     const { ship1, startDate1, ship2, startDate2 } = req.body
     const query1 = { ship: ship1, startDate: startDate1 }
     const query2 = { ship: ship2, startDate: startDate2 }
-    const rep1 = await WorkShopReparation.findOne({ where: query1 })
+    const rep1 = await this.WorkShopReparation.find(query1)
     if (!rep1) {
       return res.status(401).json({
         msg: 'nave1 y fecha1 de reparacion incorrecta'
       })
     }
-    const rep2 = await WorkShopReparation.findOne({ where: query2 })
+    const rep2 = await this.WorkShopReparation.find(query2)
     if (!rep2) {
       return res.status(401).json({
         msg: 'nave2 y fecha2 de reparacion incorrecta'
       })
     }
     const body = { ship1, startDate1, ship2, startDate2 }
-    const ok = await this.Type.update(body, query)
+    const ok = await this.Implication.update(body, query)
     if (!ok) {
       return res.status(400).json({
         msg: ok

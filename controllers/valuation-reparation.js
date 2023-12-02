@@ -1,8 +1,7 @@
-import WorkShopReparation from '../models/definitions/workshop-reparation.js'
-
 export default class ValuationRepController {
-  constructor(Model) {
-    this.Type = Model
+  constructor(Valuation, WorkshopReparation) {
+    this.Valuation = Valuation
+    this.WorkShopReparation = WorkshopReparation
   }
 
   getAll = async (req, res) => {
@@ -13,22 +12,22 @@ export default class ValuationRepController {
   create = async (req, res) => {
     const { ship, date, valuation } = req.body
     const query = { ship, startDate: date }
-    const aux = await WorkShopReparation.findOne({ where: query })
+    const aux = await this.WorkShopReparation.find(query)
     if (!aux) {
       return res.status(401).json({
         msg: 'nave y fecha de reparacion incorrecta'
       })
     }
     const body = { ship, date, valuation }
-    const type = await this.Type.create(body)
+    const val = await this.Valuation.create(body)
     res.status(201).json({
-      type
+      val
     })
   }
 
   delete = async (req, res) => {
     const { ship, date } = req.query
-    const ok = await this.Type.delete({ ship, date })
+    const ok = await this.Valuation.delete({ ship, date })
     res.json({
       ok
     })
@@ -37,22 +36,22 @@ export default class ValuationRepController {
   update = async (req, res) => {
     const { shipOld, dateOld } = req.query
     const query1 = { ship: shipOld, date: dateOld }
-    const type = await this.Type.findById(query1)
-    if (typeof type === 'undefined') {
+    const val = await this.Valuation.findById(query1)
+    if (typeof val === 'undefined') {
       return res.status(404).json({
         msg: 'type not found'
       })
     }
     const { ship, date, valuation } = req.body
     const query2 = { ship, startDate: date }
-    const aux = await WorkShopReparation.findOne({ where: query2 })
+    const aux = await this.WorkShopReparation.find(query2)
     if (!aux) {
       res.json({
         msg: 'dato no resgistrado en taller'
       })
     }
     const body = { ship, date, valuation }
-    const ok = await this.Type.update(body, query1)
+    const ok = await this.Valuation.update(body, query1)
     if (!ok) {
       return res.status(400).json({
         msg: ok
