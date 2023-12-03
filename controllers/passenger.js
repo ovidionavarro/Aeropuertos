@@ -11,7 +11,7 @@ export default class PassengerController {
 
   create = async (req, res) => {
     const { ship, date, ...rest } = req.body
-    const fl = { ship, date: new Date(date) }
+    const fl = { ship, date }
     const dataValues = await this.Flight.find(fl)
     if (!dataValues) {
       return res.status(401).json({
@@ -30,7 +30,7 @@ export default class PassengerController {
     const { shipOld, dateOld, idClientOld } = req.query
     const query = {
       ship: shipOld,
-      date: new Date(dateOld),
+      date: dateOld,
       idClient: idClientOld
     }
     const ok = await this.Passenger.delete(query)
@@ -43,7 +43,7 @@ export default class PassengerController {
     const { shipOld, dateOld, idClientOld } = req.query
     const query = {
       ship: shipOld,
-      date: new Date(dateOld),
+      date: dateOld,
       idClient: idClientOld
     }
     const type = await this.Passenger.findById(query)

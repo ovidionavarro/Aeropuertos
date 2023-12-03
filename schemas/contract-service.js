@@ -1,16 +1,16 @@
 import z from 'zod'
 const contractServiceSchema = z.object({
-  service: z.number({
+  service: z.string({
     invalid_type_error: 'service must be a IdService',
     required_error: 'service is required'
   }),
-  client: z.number({
+  client: z.string({
     invalid_type_error: 'client must be a IdClient',
     required_error: 'client position is required'
   }),
-  date: z.date({
-    invalid_type_error: 'date must be a Date',
-    required_error: 'date is required'
+  date: z.string({
+  invalid_type_error: 'date must be a Date',
+  required_error: 'date is required'
   }),
   valuation: z.number().nullable({
     invalid_type_error: 'valuation must be a number'

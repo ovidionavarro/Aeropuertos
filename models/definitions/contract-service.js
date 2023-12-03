@@ -30,6 +30,7 @@ const ContractService = db.define(
       primaryKey: true
     },
     valuation: {
+      allowNull: true,
       type: DataTypes.SMALLINT
     }
   },

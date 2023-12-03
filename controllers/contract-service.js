@@ -12,10 +12,11 @@ export default class ContractServiceController {
 
   create = async (req, res) => {
     const body = req.body
-    body.date = new Date(body.date)
+    console.log(body)
+    //body.date = new Date(body.date)
 
     // validate zod attributes
-    if (body.valuation === undefined) {
+    if (body.valuation === '') {
       body.valuation = null
     }
     const result = validateContractService(body)

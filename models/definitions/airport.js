@@ -19,7 +19,7 @@ const AirPort = db.define(
       unique: true,
       allowNull: false
     },
-    Direction: {
+    direction: {
       type: DataTypes.STRING(255),
       unique: true,
       allowNull: false
