@@ -33,7 +33,7 @@ export default class ContractServiceController {
   delete = async (req, res) => {
     const { service, client, date } = req.query
     const _date = new Date(date)
-    const ok = await this.Type.delete({ service, client, date: _date })
+    const ok = await this.Type.delete({ service, client, date })
     res.json({
       ok
     })
@@ -41,28 +41,24 @@ export default class ContractServiceController {
 
   update = async (req, res) => {
     const { service, client, date } = req.query
-    const _date = new Date(date)
-    const type = await this.Type.findById({ service, client, date: _date })
+    const type = await this.Type.findById({ service, client, date })
     if (typeof type === 'undefined') {
       return res.status(404).json({
         msg: 'type not found'
       })
     }
-    const body = req.body
-    body.date = _date
-
     // validate zod attributes
-    if (body.valuation === undefined) {
-      body.valuation = type.valuation
+    if (req.body.valuation === '') {
+      req.body.valuation = null
     }
-    const result = validateContractService(body)
+    const result = validateContractService(req.body)
     const { Ok, msg } = result
     if (!Ok) {
       return res.status(422).json({
         msg
       })
     }
-    const ok = await this.Type.update(body, { service, client, date: _date })
+    const ok = await this.Type.update(req.body, { service, client, date })
     if (!ok) {
       return res.status(400).json({
         msg: ok

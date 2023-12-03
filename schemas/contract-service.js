@@ -8,11 +8,11 @@ const contractServiceSchema = z.object({
     invalid_type_error: 'client must be a IdClient',
     required_error: 'client position is required'
   }),
-  date: z.string({
-  invalid_type_error: 'date must be a Date',
-  required_error: 'date is required'
-  }),
-  valuation: z.number().nullable({
+  // date: z.srting({
+  // invalid_type_error: 'date must be a Date',
+  // required_error: 'date is required'
+  // }),
+  valuation: z.string().nullable({
     invalid_type_error: 'valuation must be a number'
   })
 })
