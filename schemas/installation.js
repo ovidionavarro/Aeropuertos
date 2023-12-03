@@ -22,7 +22,7 @@ export function validateInstallation(input) {
   if (!result.success) {
     const err = []
     result.error.issues.forEach((element) => {
-      err.push(element.message)
+      err.push(element.path.toString() + ': ' + element.message)
     })
     return { Ok: false, msg: err }
   }

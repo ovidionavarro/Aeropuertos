@@ -1,3 +1,4 @@
+import { validateClient } from '../schemas/client.js'
 import { getHash } from '../utils.js'
 
 export default class ClientController {
@@ -16,6 +17,13 @@ export default class ClientController {
 
   create = async (req, res) => {
     const body = req.body
+    const result = validateClient(body)
+    const { Ok, msg } = result
+    if (!Ok) {
+      return res.status(422).json({
+        msg
+      })
+    }
     const { password } = body
     body.passwordHash = await getHash(password)
     try {
@@ -28,9 +36,6 @@ export default class ClientController {
         msg
       })
     }
-    const client = await this.ClientModel.create(body)
-    const { passwordHash, ..._client } = client
-    res.status(201).json({ _client })
   }
 
   delete = async (req, res) => {
@@ -50,6 +55,13 @@ export default class ClientController {
       })
     }
     const body = req.body
+    const result = validateClient(body)
+    const { Ok, msg } = result
+    if (!Ok) {
+      return res.status(422).json({
+        msg
+      })
+    }
     const { password } = body
     if (typeof password !== 'undefined') {
       body.passwordHash = await getHash(password)

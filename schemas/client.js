@@ -12,7 +12,7 @@ const clientSchema = z.object({
     invalid_type_error: 'username must be a email',
     required_error: 'username is required'
   }),
-  passwordHash: z.string({
+  password: z.string({
     invalid_type_error: 'passwordHash must be a string',
     required_error: 'passwordHash is required'
   }),
@@ -26,7 +26,7 @@ export function validateClient(input) {
   if (!result.success) {
     const err = []
     result.error.issues.forEach((element) => {
-      err.push(element.message)
+      err.push(element.path.toString() + ': ' + element.message)
     })
     return { Ok: false, msg: err }
   }

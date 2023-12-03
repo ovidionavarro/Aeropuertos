@@ -1,3 +1,5 @@
+import { validateImplication } from '../schemas/implication.js'
+
 export default class ImplicationController {
   constructor(Implication, WorkshopReparation) {
     this.Implication = Implication
@@ -11,6 +13,13 @@ export default class ImplicationController {
 
   create = async (req, res) => {
     const { ship1, startDate1, ship2, startDate2 } = req.body
+    const result = validateImplication({ ship1, startDate1, ship2, startDate2 })
+    const { Ok, msg } = result
+    if (!Ok) {
+      return res.status(422).json({
+        msg
+      })
+    }
     const query1 = { ship: ship1, startDate: startDate1 }
     const query2 = { ship: ship2, startDate: startDate2 }
     const rep1 = await this.WorkShopReparation.find(query1)
@@ -56,6 +65,13 @@ export default class ImplicationController {
       })
     }
     const { ship1, startDate1, ship2, startDate2 } = req.body
+    const result = validateImplication({ ship1, startDate1, ship2, startDate2 })
+    const { Ok, msg } = result
+    if (!Ok) {
+      return res.status(422).json({
+        msg
+      })
+    }
     const query1 = { ship: ship1, startDate: startDate1 }
     const query2 = { ship: ship2, startDate: startDate2 }
     const rep1 = await this.WorkShopReparation.find(query1)

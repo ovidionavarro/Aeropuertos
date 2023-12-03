@@ -1,3 +1,5 @@
+import { validateShip } from '../schemas/ship.js'
+
 export default class ShipController {
   constructor(Model) {
     this.Type = Model
@@ -10,6 +12,13 @@ export default class ShipController {
 
   create = async (req, res) => {
     const body = req.body
+    const result = validateShip(body)
+    const { Ok, msg } = result
+    if (!Ok) {
+      return res.status(422).json({
+        msg
+      })
+    }
     try {
       const type = await this.Type.create(body)
       res.status(201).json({ type })
@@ -38,6 +47,13 @@ export default class ShipController {
       })
     }
     const body = req.body
+    const result = validateShip(body)
+    const { Ok, msg } = result
+    if (!Ok) {
+      return res.status(422).json({
+        msg
+      })
+    }
     try {
       const ok = await this.Type.update(body, { id })
       if (!ok) {

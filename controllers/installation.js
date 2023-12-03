@@ -19,6 +19,7 @@ export default class InstallationController {
         msg
       })
     }
+
     try {
       const type = await this.Type.create(body)
       res.status(201).json({ type })
@@ -54,6 +55,7 @@ export default class InstallationController {
         msg
       })
     }
+
     try {
       const ok = await this.Type.update(body, { id })
       if (!ok) {

@@ -1,3 +1,5 @@
+import { validateReparation } from '../schemas/reparation.js'
+
 export default class ReparationController {
   constructor(Model) {
     this.Type = Model
@@ -10,6 +12,14 @@ export default class ReparationController {
 
   create = async (req, res) => {
     const body = req.body
+    const result = validateReparation(body)
+    const { Ok, msg } = result
+    if (!Ok) {
+      return res.status(422).json({
+        msg
+      })
+    }
+
     const type = await this.Type.create(body)
     res.status(201).json({ type })
   }
@@ -31,6 +41,13 @@ export default class ReparationController {
       })
     }
     const body = req.body
+    const result = validateReparation(body)
+    const { Ok, msg } = result
+    if (!Ok) {
+      return res.status(422).json({
+        msg
+      })
+    }
     const ok = await this.Type.update(body, { id })
     if (!ok) {
       return res.status(400).json({

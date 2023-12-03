@@ -1,3 +1,5 @@
+import { validateWorkshop } from '../schemas/workshop-reparation.js'
+
 export default class WorkShopController {
   constructor(Model) {
     this.Type = Model
@@ -10,6 +12,13 @@ export default class WorkShopController {
 
   create = async (req, res) => {
     const body = req.body
+    const result = validateWorkshop(body)
+    const { Ok, msg } = result
+    if (!Ok) {
+      return res.status(422).json({
+        msg
+      })
+    }
     const type = await this.Type.create(body)
     res.status(201).json({ type })
   }
@@ -31,6 +40,13 @@ export default class WorkShopController {
       })
     }
     const body = req.body
+    const result = validateWorkshop(body)
+    const { Ok, msg } = result
+    if (!Ok) {
+      return res.status(422).json({
+        msg
+      })
+    }
     const ok = await this.Type.update(body, { ship, startDate })
     if (!ok) {
       return res.status(400).json({
