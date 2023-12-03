@@ -1,6 +1,7 @@
 import { DataTypes } from 'sequelize'
 import db from '../../db/connection.js'
 import ReparationType from './reparation-type.js'
+import Installation from './installation.js'
 
 const Reparation = db.define(
   'Reparation',
@@ -24,6 +25,14 @@ const Reparation = db.define(
       allowNull: false,
       references: {
         model: ReparationType,
+        key: 'id'
+      }
+    },
+    idInstalation: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      allowNull: false,
+      references: {
+        model: Installation,
         key: 'id'
       }
     }

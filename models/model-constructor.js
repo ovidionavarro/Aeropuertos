@@ -26,7 +26,7 @@ class ModelConstructor {
   create = async (data) => {
     const result = new this.Model(data)
     await result.save()
-    return result
+    return result.dataValues
   }
 
   delete = async (id) => {

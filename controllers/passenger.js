@@ -43,7 +43,7 @@ export default class PassengerController {
     const { shipOld, dateOld, idClientOld } = req.query
     const query = {
       ship: shipOld,
-      date: dateOld,
+      date: new Date(dateOld),
       idClient: idClientOld
     }
     const type = await this.Passenger.findById(query)
@@ -54,7 +54,7 @@ export default class PassengerController {
     }
     const { ship, date, ...body } = req.body
     const query2 = { ship, date }
-    const dataValues = await this.Flight.findOne({ where: query2 })
+    const dataValues = await this.Flight.find(query2)
     if (!dataValues) {
       return res.status(401).json({
         msg: 'no existe ese vuelo'

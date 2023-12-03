@@ -1,3 +1,5 @@
+import { validateInstallation } from '../schemas/installation.js'
+
 export default class InstallationController {
   constructor(Model) {
     this.Type = Model
@@ -10,8 +12,22 @@ export default class InstallationController {
 
   create = async (req, res) => {
     const body = req.body
-    const type = await this.Type.create(body)
-    res.status(201).json({ type })
+    const result = validateInstallation(body)
+    const { Ok, msg } = result
+    if (!Ok) {
+      return res.status(422).json({
+        msg
+      })
+    }
+    try {
+      const type = await this.Type.create(body)
+      res.status(201).json({ type })
+    } catch (error) {
+      const msg = error.errors[0].message
+      return res.status(409).json({
+        msg
+      })
+    }
   }
 
   delete = async (req, res) => {
@@ -31,14 +47,28 @@ export default class InstallationController {
       })
     }
     const body = req.body
-    const ok = await this.Type.update(body, { id })
-    if (!ok) {
-      return res.status(400).json({
-        msg: ok
+    const result = validateInstallation(body)
+    const { Ok, msg } = result
+    if (!Ok) {
+      return res.status(422).json({
+        msg
       })
     }
-    return res.json({
-      msg: ok
-    })
+    try {
+      const ok = await this.Type.update(body, { id })
+      if (!ok) {
+        return res.status(400).json({
+          msg: ok
+        })
+      }
+      return res.json({
+        msg: ok
+      })
+    } catch (error) {
+      const msg = error.errors[0].message
+      return res.status(409).json({
+        msg
+      })
+    }
   }
 }

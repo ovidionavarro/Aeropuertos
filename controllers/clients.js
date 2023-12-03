@@ -7,7 +7,7 @@ export default class ClientController {
 
   getAll = async (req, res) => {
     const clients = await this.ClientModel.find()
-    const _clients = clients.map(c => {
+    const _clients = clients.map((c) => {
       const { passwordHash, ..._client } = c
       return _client
     })
@@ -18,7 +18,16 @@ export default class ClientController {
     const body = req.body
     const { password } = body
     body.passwordHash = await getHash(password)
-
+    try {
+      const client = await this.ClientModel.create(body)
+      const { passwordHash, ..._client } = client
+      res.status(201).json({ _client })
+    } catch (error) {
+      const msg = error.errors[0].message
+      return res.status(409).json({
+        msg
+      })
+    }
     const client = await this.ClientModel.create(body)
     const { passwordHash, ..._client } = client
     res.status(201).json({ _client })
@@ -45,14 +54,21 @@ export default class ClientController {
     if (typeof password !== 'undefined') {
       body.passwordHash = await getHash(password)
     }
-    const ok = await this.ClientModel.update(body, { id })
-    if (!ok) {
-      return res.status(400).json({
+    try {
+      const ok = await this.ClientModel.update(body, { id })
+      if (!ok) {
+        return res.status(400).json({
+          msg: ok
+        })
+      }
+      return res.json({
         msg: ok
       })
+    } catch (error) {
+      const msg = error.errors[0].message
+      return res.status(409).json({
+        msg
+      })
     }
-    return res.json({
-      msg: ok
-    })
   }
 }
