@@ -12,9 +12,6 @@ export default class ContractServiceController {
 
   create = async (req, res) => {
     const body = req.body
-    console.log(body)
-    //body.date = new Date(body.date)
-
     // validate zod attributes
     if (body.valuation === '') {
       body.valuation = null
@@ -32,7 +29,6 @@ export default class ContractServiceController {
 
   delete = async (req, res) => {
     const { service, client, date } = req.query
-    const _date = new Date(date)
     const ok = await this.Type.delete({ service, client, date })
     res.json({
       ok

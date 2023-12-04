@@ -1,6 +1,6 @@
 import z from 'zod'
 const contractServiceSchema = z.object({
-  service: z.string({
+  service: z.string().refine((val) => !isNaN(parseInt(val, 10)), {
     invalid_type_error: 'service must be a IdService',
     required_error: 'service is required'
   }),
@@ -8,10 +8,10 @@ const contractServiceSchema = z.object({
     invalid_type_error: 'client must be a IdClient',
     required_error: 'client position is required'
   }),
-  // date: z.srting({
-  // invalid_type_error: 'date must be a Date',
-  // required_error: 'date is required'
-  // }),
+  date: z.string().refine((val) => !isNaN(Date.parse(val)), {
+    invalid_type_error: 'date must be a Date',
+    required_error: 'date is required'
+  }),
   valuation: z.string().nullable({
     invalid_type_error: 'valuation must be a number'
   })
