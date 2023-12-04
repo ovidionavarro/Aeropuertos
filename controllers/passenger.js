@@ -4,6 +4,8 @@ export default class PassengerController {
   constructor(Passenger, Flight, Client, PassengerType) {
     this.Passenger = Passenger
     this.Flight = Flight
+    this.Client = Client
+    this.PassengerType = PassengerType
   }
 
   getAll = async (req, res) => {
@@ -23,7 +25,7 @@ export default class PassengerController {
       })
     }
     // validando foraneas
-    const { ship, date, ...rest } = body
+    const { ship, date, idClient, idPassengerType } = body
     const fl = { ship, date }
     const dataValues = await this.Flight.find(fl)
     if (dataValues.length === 0) {
@@ -31,12 +33,31 @@ export default class PassengerController {
         msg: 'no existe ese vuelo'
       })
     }
-    rest.ship = ship
-    rest.date = new Date(date)
-    const type = await this.Passenger.create(rest)
-    res.status(201).json({
-      type
-    })
+    const dataClient = await this.Client.findById({ id: idClient })
+    if (!dataClient) {
+      return res.status(401).json({
+        msg: 'client not found'
+      })
+    }
+
+    const dataPassengerType = await this.PassengerType.find({ id: idPassengerType })
+    if (!dataPassengerType) {
+      return res.status(401).json({
+        msg: 'passenger type not found'
+      })
+    }
+
+    try {
+      const type = await this.Passenger.create(body)
+      res.status(201).json({
+        type
+      })
+    } catch (error) {
+      const msg = error.errors[0].message
+      return res.status(409).json({
+        msg
+      })
+    }
   }
 
   delete = async (req, res) => {
