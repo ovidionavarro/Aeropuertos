@@ -1,21 +1,9 @@
 import z from 'zod'
 const reparationSchema = z.object({
-  description: z.string({
-    invalid_type_error: 'description must be a string',
-    required_error: 'description is required'
-  }),
-  priceHour: z.number().nonnegative({
-    invalid_type_error: 'priceHour must be a string',
-    required_error: 'priceHour is required'
-  }),
-  idReparationType: z.number().nonnegative({
-    invalid_type_error: 'idReparationType must be a number',
-    required_error: 'idReparationType is required'
-  }),
-  idInstalation: z.number().nonnegative({
-    invalid_type_error: 'idInstalation must be a number',
-    required_error: 'idInstalation is required'
-  })
+  description: z.string(),
+  priceHour: z.string().refine((val) => !isNaN(parseInt(val, 10))),
+  idReparationType: z.string().refine((val) => !isNaN(parseInt(val, 10))),
+  idInstalation: z.string().refine((val) => !isNaN(parseInt(val, 10)))
 })
 export function validateReparation(input) {
   const result = reparationSchema.safeParse(input)

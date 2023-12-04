@@ -7,8 +7,8 @@ export default class ImplicationController {
   }
 
   getAll = async (req, res) => {
-    const _types = await this.Type.find()
-    res.json(_types)
+    const _types = await this.Implication.find()
+    res.json({ _types })
   }
 
   create = async (req, res) => {

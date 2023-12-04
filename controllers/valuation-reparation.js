@@ -1,3 +1,5 @@
+import { validateValuateReparation } from '../schemas/valuate-reparation.js'
+
 export default class ValuationRepController {
   constructor(Valuation, WorkshopReparation) {
     this.Valuation = Valuation
@@ -11,6 +13,15 @@ export default class ValuationRepController {
 
   create = async (req, res) => {
     const { ship, date, valuation } = req.body
+    // validando atributos zod
+    const result = validateValuateReparation({ ship, date, valuation })
+    const { Ok, msg } = result
+    if (!Ok) {
+      return res.status(422).json({
+        msg
+      })
+    }
+
     const query = { ship, startDate: date }
     const aux = await this.WorkShopReparation.find(query)
     if (!aux) {
@@ -43,6 +54,14 @@ export default class ValuationRepController {
       })
     }
     const { ship, date, valuation } = req.body
+    // validando atributos con zod
+    const result = validateValuateReparation({ ship, date, valuation })
+    const { Ok, msg } = result
+    if (!Ok) {
+      return res.status(422).json({
+        msg
+      })
+    }
     const query2 = { ship, startDate: date }
     const aux = await this.WorkShopReparation.find(query2)
     if (!aux) {

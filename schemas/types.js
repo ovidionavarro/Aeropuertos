@@ -1,9 +1,6 @@
 import z from 'zod'
 const typeSchema = z.object({
-  name: z.string({
-    invalid_type_error: 'name must be a string',
-    required_error: 'name is required'
-  })
+  name: z.string()
 })
 export function validateType(input) {
   const result = typeSchema.safeParse(input)

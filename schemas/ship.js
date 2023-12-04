@@ -1,33 +1,12 @@
 import z from 'zod'
 const shipSchema = z.object({
-  name: z.string({
-    invalid_type_error: 'name must be a string',
-    required_error: 'name is required'
-  }),
-  status: z.string({
-    invalid_type_error: 'status must be a string',
-    required_error: 'status is required'
-  }),
-  capacity: z.number().nonnegative({
-    invalid_type_error: 'capacity must be a number',
-    required_error: 'capacity is required'
-  }),
-  numberCrews: z.number().nonnegative({
-    invalid_type_error: 'numberCrews must be a number',
-    required_error: 'numberCrews is required'
-  }),
-  totalPlazas: z.number().nonnegative({
-    invalid_type_error: 'totalPlazas must be a number',
-    required_error: 'totalPlazas is required'
-  }),
-  owner: z.number({
-    invalid_type_error: 'owner must be a IdClient',
-    required_error: 'owner is required'
-  }),
-  classification: z.number({
-    invalid_type_error: 'classification must be a IdClassification',
-    required_error: 'classification is required'
-  })
+  name: z.string(),
+  status: z.string(),
+  capacity: z.string().refine((val) => !isNaN(parseInt(val, 10))),
+  numberCrews: z.string().refine((val) => !isNaN(parseInt(val, 10))),
+  totalPlazas: z.string().refine((val) => !isNaN(parseInt(val, 10))),
+  owner: z.string().refine((val) => !isNaN(parseInt(val, 10))),
+  classification: z.string().refine((val) => !isNaN(parseInt(val, 10)))
 })
 export function validateShip(input) {
   const result = shipSchema.safeParse(input)

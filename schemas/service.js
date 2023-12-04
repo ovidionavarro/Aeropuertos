@@ -1,17 +1,8 @@
 import z from 'zod'
 const serviceSchema = z.object({
-  description: z.string({
-    invalid_type_error: 'description must be a string',
-    required_error: 'description is required'
-  }),
-  price: z.number({
-    invalid_type_error: 'price must be a number',
-    required_error: 'price position is required'
-  }),
-  idInstalation: z.number({
-    invalid_type_error: 'idInstalation must be a string',
-    required_error: 'idInstalation is required'
-  })
+  description: z.string(),
+  price: z.string().refine((val) => !isNaN(parseInt(val, 10))),
+  idInstalation: z.string().refine((val) => !isNaN(parseInt(val, 10)))
 })
 export function validateService(input) {
   const result = serviceSchema.safeParse(input)

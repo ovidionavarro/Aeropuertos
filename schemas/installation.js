@@ -1,21 +1,9 @@
 import z from 'zod'
 const installationSchema = z.object({
-  name: z.string({
-    invalid_type_error: 'name must be a string',
-    required_error: 'name is required'
-  }),
-  location: z.string({
-    invalid_type_error: 'location position must be a string',
-    required_error: 'location position is required'
-  }),
-  idTypeInst: z.number({
-    invalid_type_error: 'idTypeInst must be a number',
-    required_error: 'idTypeInst is required'
-  }),
-  idAirport: z.number({
-    invalid_type_error: 'idAirport must be a number',
-    required_error: 'idAirport is required'
-  })
+  name: z.string(),
+  location: z.string(),
+  idTypeInst: z.string().refine((val) => !isNaN(parseInt(val, 10))),
+  idAirport: z.string().refine((val) => !isNaN(parseInt(val, 10)))
 })
 export function validateInstallation(input) {
   const result = installationSchema.safeParse(input)

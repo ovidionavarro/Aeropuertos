@@ -1,21 +1,9 @@
 import z from 'zod'
 const implicationSchema = z.object({
-  ship1: z.number({
-    invalid_type_error: 'ship must be a IdShip',
-    required_error: 'ship is required'
-  }),
-  startDate1: z.date({
-    invalid_type_error: 'startDate must be a date',
-    required_error: 'startDate is required'
-  }),
-  ship2: z.number({
-    invalid_type_error: 'ship must be a IdShip',
-    required_error: 'ship is required'
-  }),
-  startDate2: z.date({
-    invalid_type_error: 'startDate must be a date',
-    required_error: 'startDate is required'
-  })
+  ship1: z.string().refine((val) => !isNaN(parseInt(val, 10))),
+  startDate1: z.string().refine((val) => !isNaN(Date.parse(val))),
+  ship2: z.string().refine((val) => !isNaN(parseInt(val, 10))),
+  startDate2: z.string().refine((val) => !isNaN(Date.parse(val)))
 })
 export function validateImplication(input) {
   const result = implicationSchema.safeParse(input)

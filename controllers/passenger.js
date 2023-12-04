@@ -1,3 +1,5 @@
+import { validatePassenger } from '../schemas/passenger.js'
+
 export default class PassengerController {
   constructor(Passenger, Flight) {
     this.Passenger = Passenger
@@ -10,7 +12,18 @@ export default class PassengerController {
   }
 
   create = async (req, res) => {
-    const { ship, date, ...rest } = req.body
+    const body = req.body
+
+    // validando atributos con zod
+    const result = validatePassenger(body)
+    const { Ok, msg } = result
+    if (!Ok) {
+      return res.status(422).json({
+        msg
+      })
+    }
+
+    const { ship, date, ...rest } = body
     const fl = { ship, date }
     const dataValues = await this.Flight.find(fl)
     if (!dataValues) {
@@ -52,7 +65,18 @@ export default class PassengerController {
         msg: 'type not found'
       })
     }
-    const { ship, date, ...body } = req.body
+    const body = req.body
+
+    // validando atributos con zod
+    const result = validatePassenger(body)
+    const { Ok, msg } = result
+    if (!Ok) {
+      return res.status(422).json({
+        msg
+      })
+    }
+
+    const { ship, date, ...rest } = body
     const query2 = { ship, date }
     const dataValues = await this.Flight.find(query2)
     if (!dataValues) {
@@ -60,9 +84,9 @@ export default class PassengerController {
         msg: 'no existe ese vuelo'
       })
     }
-    body.ship = ship
-    body.date = date
-    const ok = await this.Passenger.update(body, query)
+    rest.ship = ship
+    rest.date = date
+    const ok = await this.Passenger.update(rest, query)
     if (!ok) {
       return res.status(400).json({
         msg: ok

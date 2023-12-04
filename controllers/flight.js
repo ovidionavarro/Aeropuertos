@@ -1,4 +1,4 @@
-import { fecha } from '../utils.js'
+import { validateFlight } from '../schemas/flight.js'
 
 export default class FlightController {
   constructor(Model) {
@@ -11,11 +11,15 @@ export default class FlightController {
   }
 
   create = async (req, res) => {
-    const { day1, month1, year1, day2, month2, year2, ...body } = req.body
-    const dateReal = fecha(day1, month1, year1)
-    const dateEsp = fecha(day2, month2, year2)
-    body.date = dateReal
-    body.plannedDate = dateEsp
+    const body = req.body
+    // validando atributos zod
+    const result = validateFlight(body)
+    const { Ok, msg } = result
+    if (!Ok) {
+      return res.status(422).json({
+        msg
+      })
+    }
     const type = await this.Type.create(body)
     res.status(201).json({ type })
   }
@@ -36,11 +40,15 @@ export default class FlightController {
         msg: 'type not found'
       })
     }
-    const { day1, month1, year1, day2, month2, year2, ...body } = req.body
-    const dateReal = fecha(day1, month1, year1)
-    const dateEsp = fecha(day2, month2, year2)
-    body.date = dateReal
-    body.plannedDate = dateEsp
+    // validando atributos zod
+    const body = req.body
+    const result = validateFlight(body)
+    const { Ok, msg } = result
+    if (!Ok) {
+      return res.status(422).json({
+        msg
+      })
+    }
     const ok = await this.Type.update(body, { ship, date })
     if (!ok) {
       return res.status(400).json({
