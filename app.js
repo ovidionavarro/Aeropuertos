@@ -78,7 +78,10 @@ app.use(
     new ModelConstructor(Classification)
   )
 )
-app.use('/reparation', ReparationRouter(new ModelConstructor(Reparation)))
+app.use(
+  '/reparation',
+  ReparationRouter(new ModelConstructor(Reparation), new ModelConstructor(ReparationType))
+)
 app.use(
   '/contractService',
   ContractServiceRouter(

@@ -40,7 +40,7 @@ export default class PassengerController {
       })
     }
 
-    const dataPassengerType = await this.PassengerType.find({ id: idPassengerType })
+    const dataPassengerType = await this.PassengerType.findById({ id: idPassengerType })
     if (!dataPassengerType) {
       return res.status(401).json({
         msg: 'passenger type not found'
@@ -112,7 +112,7 @@ export default class PassengerController {
       })
     }
 
-    const dataPassengerType = await this.PassengerType.find({ id: idPassengerType })
+    const dataPassengerType = await this.PassengerType.findById({ id: idPassengerType })
     if (!dataPassengerType) {
       return res.status(401).json({
         msg: 'passenger type not found'
