@@ -1,7 +1,7 @@
 import { validatePassenger } from '../schemas/passenger.js'
 
 export default class PassengerController {
-  constructor(Passenger, Flight) {
+  constructor(Passenger, Flight, Client, PassengerType) {
     this.Passenger = Passenger
     this.Flight = Flight
   }
@@ -22,11 +22,11 @@ export default class PassengerController {
         msg
       })
     }
-
+    // validando foraneas
     const { ship, date, ...rest } = body
     const fl = { ship, date }
     const dataValues = await this.Flight.find(fl)
-    if (!dataValues) {
+    if (dataValues.length === 0) {
       return res.status(401).json({
         msg: 'no existe ese vuelo'
       })
