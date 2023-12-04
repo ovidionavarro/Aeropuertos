@@ -13,6 +13,7 @@ import PassengerRouter from './passenger.js'
 import WorkShopRouter from './workshop-reparation.js'
 import ImplicationRouter from './implication.js'
 import ValuationRepRouter from './valuation-reparation.js'
+import ReportsRouter from './reports.js'
 export {
   ClientRouter,
   AuthRouter,
@@ -28,5 +29,6 @@ export {
   PassengerRouter,
   WorkShopRouter,
   ImplicationRouter,
-  ValuationRepRouter
+  ValuationRepRouter,
+  ReportsRouter
 }

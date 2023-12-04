@@ -1,9 +1,21 @@
 @host = http://localhost:1234
 @token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZUlkIjoxLCJpYXQiOjE2OTkxNTY2NzMsImV4cCI6MTY5OTc2MTQ3M30.oXywlXMp5NtFRfaWF8wWV0wP8ooCMMGqNpzCrnz01jM
 ###
-GET {{host}}/clients/
+GET {{host}}/reparation/
 Authorization: Bearer {{token}}
 ###
+
+
+GET {{host}}/reports/
+Content-Type: application/json
+
+{
+    "action":"JoseMartiAirportClientsByTypeAndShip",
+    "format": "pdf"
+}
+
+###
+
 DELETE {{host}}/passenger/?shipOld=2&dateOld=2023-12-12&idClientOld=1
 ###
 POST {{host}}/flights/

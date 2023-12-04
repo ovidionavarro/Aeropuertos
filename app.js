@@ -17,7 +17,8 @@ import {
   PassengerRouter,
   WorkShopRouter,
   ImplicationRouter,
-  ValuationRepRouter
+  ValuationRepRouter,
+  ReportsRouter
 } from './routes/index.js'
 import {
   AirPort,
@@ -40,12 +41,16 @@ import {
   WorkShopReparation
 } from './models/definitions/index.js'
 import ModelConstructor from './models/model-constructor.js'
+import ReparationModel from './models/reparacion.js'
 const PORT = process.env.PORT ?? 1234
 
 // conectar con la base de datos
 dbConnect({ alter: false })
-// rol,valuacionrep
-// flight eliminar lo de crear la fecha
+
+// const rep = new ReparationModel(Reparation)
+// const result = await rep.getAirpotsInfo()
+// console.log(result)
+
 const app = express()
 app.use(express.json())
 app.use(cors())
@@ -61,7 +66,7 @@ app.use('/airport', AirPortRouter(new ModelConstructor(AirPort)))
 app.use('/installation', InstallationRouter(new ModelConstructor(Installation)))
 app.use('/service', ServiceRouter(new ModelConstructor(Service)))
 app.use('/ship', ShipRouter(new ModelConstructor(Ship)))
-app.use('/reparation', ReparationRouter(new ModelConstructor(Reparation)))
+app.use('/reparation', ReparationRouter(new ReparationModel(Reparation)))
 app.use(
   '/contractService',
   ContractServiceRouter(
@@ -87,6 +92,7 @@ app.use(
     new ModelConstructor(WorkShopReparation)
   )
 )
+app.use('/reports', ReportsRouter())
 
 app.listen(PORT, () => {
   console.log(`http://localhost:${PORT}`)

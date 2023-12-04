@@ -1,6 +1,6 @@
 import db from './connection.js'
 import * as Models from '../models/definitions/index.js'
-
+import * as Associations from '../models/definitions/associations.js'
 const dbConnect = ({ alter }) => {
   db.authenticate()
     .then(() => console.log('DB ok'))
