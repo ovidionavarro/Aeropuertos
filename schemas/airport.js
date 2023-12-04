@@ -2,7 +2,7 @@ import z from 'zod'
 const airPortSchema = z.object({
   name: z.string(),
   geoPos: z.string(),
-  Direction: z.string()
+  direction: z.string()
 })
 export function validateAirPort(input) {
   const result = airPortSchema.safeParse(input)

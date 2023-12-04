@@ -102,7 +102,12 @@ app.use(
 )
 app.use(
   '/passenger',
-  PassengerRouter(new ModelConstructor(Passenger), new ModelConstructor(Flight))
+  PassengerRouter(
+    new ModelConstructor(Passenger),
+    new ModelConstructor(Flight),
+    new ModelConstructor(Client),
+    new ModelConstructor(Passengertype)
+  )
 )
 app.use('/workshop', WorkShopRouter(new ModelConstructor(WorkShopReparation)))
 app.use(

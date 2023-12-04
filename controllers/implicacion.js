@@ -23,15 +23,14 @@ export default class ImplicationController {
     console.log('validado zod')
     const query1 = { ship: ship1, startDate: startDate1 }
     const query2 = { ship: ship2, startDate: startDate2 }
-    const rep1 = await this.WorkShopReparation.find({ query1 })
-    console.log(rep1)
-    if (!rep1) {
+    const rep1 = await this.WorkShopReparation.find(query1)
+    if (rep1.length === 0) {
       return res.status(401).json({
         msg: 'nave1 y fecha1 de reparacion incorrecta'
       })
     }
     const rep2 = await this.WorkShopReparation.find(query2)
-    if (!rep2) {
+    if (rep2.length === 0) {
       return res.status(401).json({
         msg: 'nave2 y fecha2 de reparacion incorrecta'
       })
@@ -84,26 +83,33 @@ export default class ImplicationController {
     const query1 = { ship: ship1, startDate: startDate1 }
     const query2 = { ship: ship2, startDate: startDate2 }
     const rep1 = await this.WorkShopReparation.find(query1)
-    if (!rep1) {
+    if (rep1.length === 0) {
       return res.status(401).json({
         msg: 'nave1 y fecha1 de reparacion incorrecta'
       })
     }
     const rep2 = await this.WorkShopReparation.find(query2)
-    if (!rep2) {
+    if (rep2.length === 0) {
       return res.status(401).json({
         msg: 'nave2 y fecha2 de reparacion incorrecta'
       })
     }
     const body = { ship1, startDate1, ship2, startDate2 }
-    const ok = await this.Implication.update(body, query)
-    if (!ok) {
-      return res.status(400).json({
+    try {
+      const ok = await this.Implication.update(body, query)
+      if (!ok) {
+        return res.status(400).json({
+          msg: ok
+        })
+      }
+      return res.json({
         msg: ok
       })
+    } catch (error) {
+      const msg = error.errors[0].message
+      return res.status(409).json({
+        msg
+      })
     }
-    return res.json({
-      msg: ok
-    })
   }
 }
