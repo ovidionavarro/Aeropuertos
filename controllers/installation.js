@@ -1,8 +1,10 @@
 import { validateInstallation } from '../schemas/installation.js'
 
 export default class InstallationController {
-  constructor(Model) {
-    this.Type = Model
+  constructor(Installation, InstallationType, Airport) {
+    this.Type = Installation
+    this.InstallationType = InstallationType
+    this.Airport = Airport
   }
 
   getAll = async (req, res) => {
@@ -19,7 +21,21 @@ export default class InstallationController {
         msg
       })
     }
-
+    // validando foraneas
+    const instType = body.idTypeInst
+    const dataType = await this.InstallationType.findById({ id: instType })
+    if (!dataType) {
+      return res.status(401).json({
+        msg: 'installation type not found'
+      })
+    }
+    const airport = body.idAirport
+    const dataAirPort = await this.Airport.findById({ id: airport })
+    if (!dataAirPort) {
+      return res.status(401).json({
+        msg: 'airport type not found'
+      })
+    }
     try {
       const type = await this.Type.create(body)
       res.status(201).json({ type })
@@ -53,6 +69,21 @@ export default class InstallationController {
     if (!Ok) {
       return res.status(422).json({
         msg
+      })
+    }
+    // validando foraneas
+    const instType = body.idTypeInst
+    const dataType = await this.InstallationType.findById({ id: instType })
+    if (!dataType) {
+      return res.status(401).json({
+        msg: 'installation type not found'
+      })
+    }
+    const airport = body.idAirport
+    const dataAirPort = await this.Airport.findById({ id: airport })
+    if (!dataAirPort) {
+      return res.status(401).json({
+        msg: 'airport type not found'
       })
     }
 

@@ -1,9 +1,9 @@
 import { Router } from 'express'
 import FlightController from '../controllers/flight.js'
 
-const FlightRouter = (Model) => {
+const FlightRouter = (flight, Ship, AirPort) => {
   const router = Router()
-  const flightControl = new FlightController(Model)
+  const flightControl = new FlightController(flight, Ship, AirPort)
   router.get('/', flightControl.getAll.bind(flightControl))
   router.post('/', flightControl.create.bind(flightControl))
   router.delete('/', flightControl.delete.bind(flightControl))

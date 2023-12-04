@@ -1,8 +1,10 @@
 import { validateShip } from '../schemas/ship.js'
 
 export default class ShipController {
-  constructor(Model) {
-    this.Type = Model
+  constructor(Ship, Client, Classification) {
+    this.Type = Ship
+    this.Client = Client
+    this.Classification = Classification
   }
 
   getAll = async (req, res) => {
@@ -17,6 +19,21 @@ export default class ShipController {
     if (!Ok) {
       return res.status(422).json({
         msg
+      })
+    }
+    // validando foraneas
+    const client = body.owner
+    const dataClient = await this.Client.findById({ id: client })
+    if (!dataClient) {
+      return res.status(401).json({
+        msg: 'client not found'
+      })
+    }
+    const classification = body.classification
+    const dataClassification = await this.Classification.findById({ id: classification })
+    if (!dataClassification) {
+      return res.status(401).json({
+        msg: 'classification not found'
       })
     }
     try {

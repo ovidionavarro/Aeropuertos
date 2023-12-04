@@ -2,8 +2,9 @@ import { validateClient } from '../schemas/client.js'
 import { getHash } from '../utils.js'
 
 export default class ClientController {
-  constructor(Model) {
-    this.ClientModel = Model
+  constructor(Client, ClientType) {
+    this.ClientModel = Client
+    this.ClientType = ClientType
   }
 
   getAll = async (req, res) => {
@@ -22,6 +23,14 @@ export default class ClientController {
     if (!Ok) {
       return res.status(422).json({
         msg
+      })
+    }
+    // validando foraneas
+    const clientType = body.idClientType
+    const dataType = await this.ClientType.findById({ id: clientType })
+    if (!dataType) {
+      return res.status(401).json({
+        msg: 'no existe ese tipo de cliente'
       })
     }
     const { password } = body
@@ -60,6 +69,14 @@ export default class ClientController {
     if (!Ok) {
       return res.status(422).json({
         msg
+      })
+    }
+    // validando foraneas
+    const clientType = body.idClientType
+    const dataType = await this.ClientType.findById({ id: clientType })
+    if (!dataType) {
+      return res.status(401).json({
+        msg: 'no existe ese tipo de cliente'
       })
     }
     const { password } = body

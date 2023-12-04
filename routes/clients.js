@@ -4,9 +4,9 @@ import ClientController from '../controllers/clients.js'
 // import authorize from '../middlewares/authorize.js'
 // import { roles } from '../config/defaultValues.js'
 
-const ClientRouter = (Model) => {
+const ClientRouter = (Client, ClientType) => {
   const router = Router()
-  const clientController = new ClientController(Model)
+  const clientController = new ClientController(Client, ClientType)
   // router.use(authenticate)
   // router.use(authorize(roles.admin))
   router.get('/', clientController.getAll.bind(clientController))
