@@ -96,25 +96,43 @@ export default class PassengerController {
         msg
       })
     }
-
-    const { ship, date, ...rest } = body
+    // validando foraneas
+    const { ship, date, idClient, idPassengerType } = body
     const query2 = { ship, date }
     const dataValues = await this.Flight.find(query2)
-    if (!dataValues) {
+    if (dataValues === 0) {
       return res.status(401).json({
         msg: 'no existe ese vuelo'
       })
     }
-    rest.ship = ship
-    rest.date = date
-    const ok = await this.Passenger.update(rest, query)
-    if (!ok) {
-      return res.status(400).json({
-        msg: ok
+    const dataClient = await this.Client.findById({ id: idClient })
+    if (!dataClient) {
+      return res.status(401).json({
+        msg: 'client not found'
       })
     }
-    return res.json({
-      msg: ok
-    })
+
+    const dataPassengerType = await this.PassengerType.find({ id: idPassengerType })
+    if (!dataPassengerType) {
+      return res.status(401).json({
+        msg: 'passenger type not found'
+      })
+    }
+    try {
+      const ok = await this.Passenger.update(body, query)
+      if (!ok) {
+        return res.status(400).json({
+          msg: ok
+        })
+      }
+      return res.json({
+        msg: ok
+      })
+    } catch (error) {
+      const msg = error.errors[0].message
+      return res.status(409).json({
+        msg
+      })
+    }
   }
 }
