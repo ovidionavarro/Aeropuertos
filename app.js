@@ -62,7 +62,14 @@ app.use('/installation', InstallationRouter(new ModelConstructor(Installation)))
 app.use('/service', ServiceRouter(new ModelConstructor(Service)))
 app.use('/ship', ShipRouter(new ModelConstructor(Ship)))
 app.use('/reparation', ReparationRouter(new ModelConstructor(Reparation)))
-app.use('/contractService', ContractServiceRouter(new ModelConstructor(ContractService)))
+app.use(
+  '/contractService',
+  ContractServiceRouter(
+    new ModelConstructor(ContractService),
+    new ModelConstructor(Client),
+    new ModelConstructor(Service)
+  )
+)
 app.use('/flight', FlightRouter(new ModelConstructor(Flight)))
 app.use(
   '/passenger',

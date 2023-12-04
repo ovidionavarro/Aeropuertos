@@ -1,8 +1,10 @@
 import { validateContractService } from '../schemas/contract-service.js'
 
 export default class ContractServiceController {
-  constructor(Model) {
-    this.Type = Model
+  constructor(ContractService, Client, Service) {
+    this.Type = ContractService
+    this.Client = Client
+    this.Service = Service
   }
 
   getAll = async (req, res) => {
@@ -23,8 +25,32 @@ export default class ContractServiceController {
         msg
       })
     }
-    const type = await this.Type.create(body)
-    res.status(201).json({ type })
+    // validar client
+    const client = body.client
+    const dataClient = await this.Client.findById({ id: client })
+    if (!dataClient) {
+      return res.status(401).json({
+        msg: 'no existe ese cliente'
+      })
+    }
+
+    // validar servicio
+    const service = body.service
+    const dataService = await this.Service.findById({ id: service })
+    if (!dataService) {
+      return res.status(401).json({
+        msg: 'no existe ese servicio'
+      })
+    }
+    try {
+      const type = await this.Type.create(body)
+      res.status(201).json({ type })
+    } catch (error) {
+      const msg = error.errors[0].message
+      return res.status(409).json({
+        msg
+      })
+    }
   }
 
   delete = async (req, res) => {
