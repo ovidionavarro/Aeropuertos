@@ -1,8 +1,10 @@
 import { validateFlight } from '../schemas/flight.js'
 
 export default class FlightController {
-  constructor(Model) {
-    this.Type = Model
+  constructor(flight, Ship, AirPort) {
+    this.Type = flight
+    this.Ship = Ship
+    this.AirPort = AirPort
   }
 
   getAll = async (req, res) => {
@@ -20,8 +22,30 @@ export default class FlightController {
         msg
       })
     }
-    const type = await this.Type.create(body)
-    res.status(201).json({ type })
+    // validando foraneas
+    const ship = body.ship
+    const dataShip = await this.Ship.findById({ id: ship })
+    if (!dataShip) {
+      return res.status(401).json({
+        msg: 'ship not found'
+      })
+    }
+    const airport = body.airport
+    const dataAirPort = await this.AirPort.findById({ id: airport })
+    if (!dataAirPort) {
+      return res.status(401).json({
+        msg: 'airport not found'
+      })
+    }
+    try {
+      const type = await this.Type.create(body)
+      res.status(201).json({ type })
+    } catch (error) {
+      const msg = error.errors[0].message
+      return res.status(409).json({
+        msg
+      })
+    }
   }
 
   delete = async (req, res) => {
@@ -49,14 +73,37 @@ export default class FlightController {
         msg
       })
     }
-    const ok = await this.Type.update(body, { ship, date })
-    if (!ok) {
-      return res.status(400).json({
-        msg: ok
+    // validando foraneas
+    const auxShip = body.ship
+    const dataShip = await this.Ship.findById({ id: auxShip })
+    if (!dataShip) {
+      return res.status(401).json({
+        msg: 'ship not found'
       })
     }
-    return res.json({
-      msg: ok
-    })
+    const airport = body.airport
+    const dataAirPort = await this.AirPort.findById({ id: airport })
+    if (!dataAirPort) {
+      return res.status(401).json({
+        msg: 'airport not found'
+      })
+    }
+
+    try {
+      const ok = await this.Type.update(body, { ship, date })
+      if (!ok) {
+        return res.status(400).json({
+          msg: ok
+        })
+      }
+      return res.json({
+        msg: ok
+      })
+    } catch (error) {
+      const msg = error.errors[0].message
+      return res.status(409).json({
+        msg
+      })
+    }
   }
 }

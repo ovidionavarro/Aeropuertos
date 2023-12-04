@@ -56,11 +56,28 @@ app.use('/passengerType', RouterTypes(new ModelConstructor(Passengertype)))
 app.use('/installationType', RouterTypes(new ModelConstructor(InstallationType)))
 app.use('/classificationShip', RouterTypes(new ModelConstructor(Classification)))
 app.use('/typeClient', RouterTypes(new ModelConstructor(ClientType)))
-app.use('/clients', ClientRouter(new ModelConstructor(Client)))
+app.use('/clients', ClientRouter(new ModelConstructor(Client), new ModelConstructor(ClientType)))
 app.use('/airport', AirPortRouter(new ModelConstructor(AirPort)))
-app.use('/installation', InstallationRouter(new ModelConstructor(Installation)))
-app.use('/service', ServiceRouter(new ModelConstructor(Service)))
-app.use('/ship', ShipRouter(new ModelConstructor(Ship)))
+app.use(
+  '/installation',
+  InstallationRouter(
+    new ModelConstructor(Installation),
+    new ModelConstructor(InstallationType),
+    new ModelConstructor(AirPort)
+  )
+)
+app.use(
+  '/service',
+  ServiceRouter(new ModelConstructor(Service), new ModelConstructor(Installation))
+)
+app.use(
+  '/ship',
+  ShipRouter(
+    new ModelConstructor(Ship),
+    new ModelConstructor(Client),
+    new ModelConstructor(Classification)
+  )
+)
 app.use('/reparation', ReparationRouter(new ModelConstructor(Reparation)))
 app.use(
   '/contractService',
@@ -70,7 +87,14 @@ app.use(
     new ModelConstructor(Service)
   )
 )
-app.use('/flight', FlightRouter(new ModelConstructor(Flight)))
+app.use(
+  '/flight',
+  FlightRouter(
+    new ModelConstructor(Flight),
+    new ModelConstructor(Ship),
+    new ModelConstructor(AirPort)
+  )
+)
 app.use(
   '/passenger',
   PassengerRouter(new ModelConstructor(Passenger), new ModelConstructor(Flight))

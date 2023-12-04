@@ -1,9 +1,9 @@
 import { Router } from 'express'
 import ShipController from '../controllers/ship.js'
 
-const ShipRouter = (Model) => {
+const ShipRouter = (Ship, Client, Classification) => {
   const router = Router()
-  const shipControl = new ShipController(Model)
+  const shipControl = new ShipController(Ship, Client, Classification)
   router.get('/', shipControl.getAll.bind(shipControl))
   router.post('/', shipControl.create.bind(shipControl))
   router.delete('/:id', shipControl.delete.bind(shipControl))

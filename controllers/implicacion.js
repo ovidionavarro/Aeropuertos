@@ -20,9 +20,11 @@ export default class ImplicationController {
         msg
       })
     }
+    console.log('validado zod')
     const query1 = { ship: ship1, startDate: startDate1 }
     const query2 = { ship: ship2, startDate: startDate2 }
-    const rep1 = await this.WorkShopReparation.find(query1)
+    const rep1 = await this.WorkShopReparation.find({ query1 })
+    console.log(rep1)
     if (!rep1) {
       return res.status(401).json({
         msg: 'nave1 y fecha1 de reparacion incorrecta'
@@ -35,10 +37,17 @@ export default class ImplicationController {
       })
     }
     const body = { ship1, startDate1, ship2, startDate2 }
-    const type = await this.Implication.create(body)
-    res.status(201).json({
-      type
-    })
+    try {
+      const type = await this.Implication.create(body)
+      res.status(201).json({
+        type
+      })
+    } catch (error) {
+      const msg = error.errors[0].message
+      return res.status(409).json({
+        msg
+      })
+    }
   }
 
   delete = async (req, res) => {

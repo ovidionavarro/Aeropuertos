@@ -1,9 +1,9 @@
 import { Router } from 'express'
 import ServiceController from '../controllers/service.js'
 
-const ServiceRouter = (Model) => {
+const ServiceRouter = (Service, Installation) => {
   const router = Router()
-  const serviceControl = new ServiceController(Model)
+  const serviceControl = new ServiceController(Service, Installation)
   router.get('/', serviceControl.getAll.bind(serviceControl))
   router.post('/', serviceControl.create.bind(serviceControl))
   router.delete('/:id', serviceControl.delete.bind(serviceControl))

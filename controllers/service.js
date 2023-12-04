@@ -1,8 +1,9 @@
 import { validateService } from '../schemas/service.js'
 
 export default class ServiceController {
-  constructor(Model) {
-    this.Type = Model
+  constructor(Service, Installation) {
+    this.Type = Service
+    this.Installation = Installation
   }
 
   getAll = async (req, res) => {
@@ -17,6 +18,14 @@ export default class ServiceController {
     if (!Ok) {
       return res.status(422).json({
         msg
+      })
+    }
+    // valindando foraneas
+    const installation = body.idInstalation
+    const dataInst = await this.Installation.findById({ id: installation })
+    if (!dataInst) {
+      return res.status(401).json({
+        msg: 'installation not found'
       })
     }
     const type = await this.Type.create(body)
@@ -45,6 +54,14 @@ export default class ServiceController {
     if (!Ok) {
       return res.status(422).json({
         msg
+      })
+    }
+    // valindando foraneas
+    const installation = body.idInstalation
+    const dataInst = await this.Installation.findById({ id: installation })
+    if (!dataInst) {
+      return res.status(401).json({
+        msg: 'installation not found'
       })
     }
     const ok = await this.Type.update(body, { id })
