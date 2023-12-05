@@ -66,7 +66,7 @@ export default class ReportsController {
   }
 
   getJoseMartiAirportClientsByTypeAndShip = async () => {
-    const result = await this.PassengerModel.getAverageCostOfInefficientServicesAtJoseMarti()
+    const result = await this.PassengerModel.getJoseMartiAirportClientsByTypeAndShip()
     return result
   }
 
