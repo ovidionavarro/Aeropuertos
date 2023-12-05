@@ -55,10 +55,16 @@ export default class ContractServiceController {
 
   delete = async (req, res) => {
     const { service, client, date } = req.query
-    const ok = await this.Type.delete({ service, client, date })
-    res.json({
-      ok
-    })
+    try {
+      const ok = await this.Type.delete({ service, client, date })
+      res.json({
+        ok
+      })
+    } catch (error) {
+      res.status(409).json({
+        msg: 'cannot delete, foreing key '
+      })
+    }
   }
 
   update = async (req, res) => {

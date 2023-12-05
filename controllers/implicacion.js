@@ -52,6 +52,16 @@ export default class ImplicationController {
   delete = async (req, res) => {
     const { ship1, startDate1, ship2, startDate2 } = req.query
     const query = { ship1, startDate1, ship2, startDate2 }
+    try {
+      const ok = await this.Implication.delete(query)
+      res.json({
+        ok
+      })
+    } catch (error) {
+      res.status(409).json({
+        msg: 'cannot delete, foreing key '
+      })
+    }
     const ok = await this.Implication.delete(query)
     res.json({
       ok

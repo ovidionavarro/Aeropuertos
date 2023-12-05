@@ -14,11 +14,11 @@ const authenticate = (req, res, next) => {
   if (!decodedToken.id) {
     return res.status(401).json({ error: 'Invalid token' })
   }
-  if (!decodedToken.roleId) {
-    req.id = decodedToken.id
-  } else {
-    req.roleId = decodedToken.roleId
-  }
+  // if (!decodedToken.roleId) {
+  //  req.id = decodedToken.id
+  // } else {
+  //  req.roleId = decodedToken.roleId
+  // }
   next()
 }
 export default authenticate

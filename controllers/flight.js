@@ -50,6 +50,16 @@ export default class FlightController {
 
   delete = async (req, res) => {
     const { ship, date } = req.query
+    try {
+      const ok = await this.Type.delete({ ship, date })
+      res.json({
+        ok
+      })
+    } catch (error) {
+      res.status(409).json({
+        msg: 'cannot delete, foreing key '
+      })
+    }
     const ok = await this.Type.delete({ ship, date })
     res.json({
       ok

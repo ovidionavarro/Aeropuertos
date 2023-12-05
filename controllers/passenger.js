@@ -67,10 +67,16 @@ export default class PassengerController {
       date: dateOld,
       idClient: idClientOld
     }
-    const ok = await this.Passenger.delete(query)
-    res.json({
-      ok
-    })
+    try {
+      const ok = await this.Passenger.delete(query)
+      res.json({
+        ok
+      })
+    } catch (error) {
+      res.status(409).json({
+        msg: 'cannot delete, foreing key '
+      })
+    }
   }
 
   update = async (req, res) => {

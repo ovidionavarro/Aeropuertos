@@ -50,10 +50,17 @@ export default class WorkShopController {
 
   delete = async (req, res) => {
     const { ship, startDate } = req.query
-    const ok = await this.Type.delete({ ship, startDate })
-    res.json({
-      ok
-    })
+
+    try {
+      const ok = await this.Type.delete({ ship, startDate })
+      res.json({
+        ok
+      })
+    } catch (error) {
+      res.status(409).json({
+        msg: 'cannot delete, foreing key '
+      })
+    }
   }
 
   update = async (req, res) => {
