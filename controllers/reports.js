@@ -86,11 +86,17 @@ export default class ReportsController {
     res.setHeader('Content-Disposition', 'attachment; filename="report.pdf"')
     doc.pipe(res)
     doc.fontSize(16).text(title, 100, 100)
-    if (data.lenght !== 0 && data.lenght !== undefined) {
+    console.log(data)
+    if (data.lenght !== 0 && data !== undefined) {
+      try {
       const _keys = Object.keys(data[0])
       const k = _keys.join(' | ')
       doc.text(k)
       doc.moveDown()
+      }
+      catch (err) {
+        doc.text('')
+      }
 
       data.forEach((element) => {
         const vals = Object.values(element)
@@ -105,17 +111,21 @@ export default class ReportsController {
   }
 
   generateExcel = async (res, title, data) => {
-    try {
       const workbook = new ExcelJS.Workbook()
       const worksheet = workbook.addWorksheet(title)
-      if (data.lenght !== 0 && data.lenght !== undefined) {
+      console.log(data)
+      if (data.lenght !== 0 && data !== undefined) {
+        try {
         const _keys = Object.keys(data[0])
         worksheet.addRow(_keys)
-      }
+        }catch(err){
+          worksheet.addRow(['',''])
+        }
       data.forEach((d) => {
         const values = Object.values(d)
         worksheet.addRow(values)
       })
+    }
       res.setHeader(
         'Content-Type',
         'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
@@ -124,9 +134,5 @@ export default class ReportsController {
       await workbook.xlsx.write(res)
       res.end()
       return res.status(200)
-    } catch (error) {
-      console.error('Error al generar el archivo Excel:', error)
-      res.status(500).send('Error interno del servidor')
-    }
   }
 }
