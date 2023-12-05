@@ -1,8 +1,9 @@
 import { actions } from '../config/defaultValues.js'
 
 export default class ReportsController {
-  constructor(ReparationModel) {
+  constructor(ReparationModel, WorkShopReparationModel) {
     this.ReparationModel = ReparationModel
+    this.WorkShopReparationModel = WorkShopReparationModel
   }
 
   get = async (req, res) => {
@@ -15,7 +16,7 @@ export default class ReportsController {
         return res.json(response)
       }
       case actions[1]: {
-        const response = await this.getTotalCapitalRepairsPerAirport()
+        const response = await this.getTotalCapitalRepairsPerAirport('capital')
         return res.json(response)
       }
       case actions[2]: {
@@ -39,8 +40,9 @@ export default class ReportsController {
     return result
   }
 
-  getTotalCapitalRepairsPerAirport = async () => {
-    return { action: 'action2' }
+  getTotalCapitalRepairsPerAirport = async (type) => {
+    const result = await this.WorkShopReparationModel.getTotalCapitalRepairsPerAirport(type)
+    return result
   }
 
   getJoseMartiAirportClientsByTypeAndShip = async () => {

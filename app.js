@@ -50,10 +50,6 @@ const PORT = process.env.PORT ?? 1234
 // conectar con la base de datos
 dbConnect({ force: false, alter: false })
 
-const rep = new WorkShopReparationModel(WorkShopReparation)
-const result = await rep.getTotalCapitalRepairsPerAirport('tipoRep1')
-console.log(result)
-
 const app = express()
 app.use(express.json())
 app.use(cors())
@@ -134,7 +130,10 @@ app.use(
     new ModelConstructor(WorkShopReparation)
   )
 )
-app.use('/reports', ReportsRouter(new ReparationModel(Reparation)))
+app.use(
+  '/reports',
+  ReportsRouter(new ReparationModel(Reparation), new WorkShopReparationModel(WorkShopReparation))
+)
 
 app.listen(PORT, () => {
   console.log(`http://localhost:${PORT}`)
