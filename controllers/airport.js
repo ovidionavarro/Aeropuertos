@@ -33,10 +33,14 @@ export default class AirPortController {
 
   delete = async (req, res) => {
     const { id } = req.params
-    const ok = await this.Type.delete({ id })
-    res.json({
-      ok
-    })
+    try {
+      const ok = await this.Type.delete({ id })
+      res.json({
+        ok
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   update = async (req, res) => {
