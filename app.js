@@ -107,7 +107,14 @@ app.use(
     new ModelConstructor(Passengertype)
   )
 )
-app.use('/workshop', WorkShopRouter(new ModelConstructor(WorkShopReparation)))
+app.use(
+  '/workshop',
+  WorkShopRouter(
+    new ModelConstructor(WorkShopReparation),
+    new ModelConstructor(Ship),
+    new ModelConstructor(Reparation)
+  )
+)
 app.use(
   '/implication',
   ImplicationRouter(new ModelConstructor(Implication), new ModelConstructor(WorkShopReparation))

@@ -1,8 +1,10 @@
 import { validateWorkshop } from '../schemas/workshop-reparation.js'
 
 export default class WorkShopController {
-  constructor(Model) {
-    this.Type = Model
+  constructor(WorkShop, Ship, Reparation) {
+    this.Type = WorkShop
+    this.Ship = Ship
+    this.Reparation = Reparation
   }
 
   getAll = async (req, res) => {
@@ -12,6 +14,7 @@ export default class WorkShopController {
 
   create = async (req, res) => {
     const body = req.body
+    // validando atributos zod
     const result = validateWorkshop(body)
     const { Ok, msg } = result
     if (!Ok) {
@@ -19,8 +22,30 @@ export default class WorkShopController {
         msg
       })
     }
-    const type = await this.Type.create(body)
-    res.status(201).json({ type })
+    // validando foraneas
+    const ship = body.ship
+    const dataShip = await this.Ship.findById({ id: ship })
+    if (!dataShip) {
+      return res.status(401).json({
+        msg: 'ship  not found'
+      })
+    }
+    const reparation = body.idReparation
+    const dataReparation = await this.Reparation.findById({ id: reparation })
+    if (!dataReparation) {
+      return res.status(401).json({
+        msg: 'ship  not found'
+      })
+    }
+    try {
+      const type = await this.Type.create(body)
+      res.status(201).json({ type })
+    } catch (error) {
+      const msg = error.errors[0].message
+      return res.status(409).json({
+        msg
+      })
+    }
   }
 
   delete = async (req, res) => {
@@ -47,14 +72,36 @@ export default class WorkShopController {
         msg
       })
     }
-    const ok = await this.Type.update(body, { ship, startDate })
-    if (!ok) {
-      return res.status(400).json({
-        msg: ok
+    // validando foraneas
+    const auxShip = body.ship
+    const dataShip = await this.Ship.findById({ id: auxShip })
+    if (!dataShip) {
+      return res.status(401).json({
+        msg: 'ship  not found'
       })
     }
-    return res.json({
-      msg: ok
-    })
+    const reparation = body.idReparation
+    const dataReparation = await this.Reparation.findById({ id: reparation })
+    if (!dataReparation) {
+      return res.status(401).json({
+        msg: 'ship  not found'
+      })
+    }
+    try {
+      const ok = await this.Type.update(body, { ship, startDate })
+      if (!ok) {
+        return res.status(400).json({
+          msg: ok
+        })
+      }
+      return res.json({
+        msg: ok
+      })
+    } catch (error) {
+      const msg = error.errors[0].message
+      return res.status(409).json({
+        msg
+      })
+    }
   }
 }
