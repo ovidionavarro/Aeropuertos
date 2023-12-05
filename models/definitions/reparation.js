@@ -35,6 +35,10 @@ const Reparation = db.define(
         model: Installation,
         key: 'id'
       }
+    },
+    activity: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true
     }
   },
   { timestamps: false }

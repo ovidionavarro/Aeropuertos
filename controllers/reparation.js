@@ -7,7 +7,7 @@ export default class ReparationController {
   }
 
   getAll = async (req, res) => {
-    const _types = await this.Type.find()
+    const _types = await this.Type.find({ activity: true })
     res.json(_types)
   }
 
@@ -41,16 +41,14 @@ export default class ReparationController {
 
   delete = async (req, res) => {
     const { id } = req.params
-    try {
-      const ok = await this.Type.delete({ id })
-      res.json({
-        ok
-      })
-    } catch (error) {
-      res.status(409).json({
-        msg: 'cannot delete, foreing key '
-      })
-    }
+    const elem = await this.Type.findById({ id })
+    elem.activity = false
+    const { description, price, idInstalation, activity } = elem
+    const body = { description, price, idInstalation, activity }
+    const ok = await this.Type.update(body, { id })
+    res.json({
+      msg: ok
+    })
   }
 
   update = async (req, res) => {
