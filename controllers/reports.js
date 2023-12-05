@@ -2,9 +2,10 @@ import { actions } from '../config/defaultValues.js'
 import PDFDocument from 'pdfkit'
 import ExcelJS from 'exceljs'
 export default class ReportsController {
-  constructor(ReparationModel, WorkShopReparationModel) {
+  constructor(ReparationModel, WorkShopReparationModel, PassengerModel) {
     this.ReparationModel = ReparationModel
     this.WorkShopReparationModel = WorkShopReparationModel
+    this.PassengerModel = PassengerModel
   }
 
   get = async (req, res) => {
@@ -31,7 +32,7 @@ export default class ReportsController {
       }
       case actions[2]: {
         response = await this.getJoseMartiAirportClientsByTypeAndShip()
-        title = 'Consulta3'
+        title = 'Obtener clientes que han llegado al aeropuerto Jose Marti'
         break
       }
       case actions[3]: {
@@ -65,7 +66,8 @@ export default class ReportsController {
   }
 
   getJoseMartiAirportClientsByTypeAndShip = async () => {
-    return { action: 'action3' }
+    const result = await this.PassengerModel.getAverageCostOfInefficientServicesAtJoseMarti()
+    return result
   }
 
   getAirportsWithLeastTrafficAndServices = async () => {
@@ -84,18 +86,19 @@ export default class ReportsController {
     res.setHeader('Content-Disposition', 'attachment; filename="report.pdf"')
     doc.pipe(res)
     doc.fontSize(16).text(title, 100, 100)
-    if (data.lenght !== 0) {
-      const keys = Object.keys(data[0])
-      const k = keys.join(' | ')
+    if (data.lenght !== 0 && data.lenght !== undefined) {
+      const _keys = Object.keys(data[0])
+      const k = _keys.join(' | ')
       doc.text(k)
       doc.moveDown()
+
+      data.forEach((element) => {
+        const vals = Object.values(element)
+        const _vals = vals.join(' ')
+        doc.text(_vals)
+        doc.moveDown()
+      })
     }
-    data.forEach((element) => {
-      const vals = Object.values(element)
-      const _vals = vals.join(' ')
-      doc.text(_vals)
-      doc.moveDown()
-    })
     doc.addPage()
     doc.end()
     return res.status(200)
@@ -105,9 +108,9 @@ export default class ReportsController {
     try {
       const workbook = new ExcelJS.Workbook()
       const worksheet = workbook.addWorksheet(title)
-      if (data.lenght !== 0) {
-        const keys = Object.keys(data[0])
-        worksheet.addRow(keys)
+      if (data.lenght !== 0 && data.lenght !== undefined) {
+        const _keys = Object.keys(data[0])
+        worksheet.addRow(_keys)
       }
       data.forEach((d) => {
         const values = Object.values(d)

@@ -44,9 +44,8 @@ import {
 import ModelConstructor from './models/model-constructor.js'
 import ReparationModel from './models/reparation.js'
 import WorkShopReparationModel from './models/workshop-reparation.js'
-
+import PassengerModel from './models/passenger.js'
 const PORT = process.env.PORT ?? 1234
-
 // conectar con la base de datos
 dbConnect({ force: false, alter: false })
 
@@ -132,7 +131,11 @@ app.use(
 )
 app.use(
   '/reports',
-  ReportsRouter(new ReparationModel(Reparation), new WorkShopReparationModel(WorkShopReparation))
+  ReportsRouter(
+    new ReparationModel(Reparation),
+    new WorkShopReparationModel(WorkShopReparation),
+    new PassengerModel(Passenger)
+  )
 )
 
 app.listen(PORT, () => {

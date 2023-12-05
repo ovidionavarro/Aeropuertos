@@ -4,11 +4,11 @@ import ReportsController from '../controllers/reports.js'
 // import authorize from '../middlewares/authorize.js'
 // import { roles } from '../config/defaultValues.js'
 
-const ReportsRouter = (Reparation, WorkShopReparation) => {
+const ReportsRouter = (Reparation, WorkShopReparation, Passenger) => {
   const router = Router()
   // router.use(authenticate)
   // router.use(authorize(roles.admin))
-  const reportController = new ReportsController(Reparation, WorkShopReparation)
+  const reportController = new ReportsController(Reparation, WorkShopReparation, Passenger)
   router.get('/', reportController.get.bind(reportController))
   return router
 }
