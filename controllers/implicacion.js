@@ -62,10 +62,6 @@ export default class ImplicationController {
         msg: 'cannot delete, foreing key '
       })
     }
-    const ok = await this.Implication.delete(query)
-    res.json({
-      ok
-    })
   }
 
   update = async (req, res) => {
