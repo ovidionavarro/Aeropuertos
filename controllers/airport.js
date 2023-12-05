@@ -39,7 +39,9 @@ export default class AirPortController {
         ok
       })
     } catch (error) {
-      console.log(error)
+      res.status(409).json({
+        msg: 'cannot delete, foreing key '
+      })
     }
   }
 
