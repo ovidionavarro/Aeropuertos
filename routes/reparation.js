@@ -1,9 +1,9 @@
 import { Router } from 'express'
 import ReparationController from '../controllers/reparation.js'
 
-const ReparationRouter = (Model) => {
+const ReparationRouter = (Reparation, ReparationType) => {
   const router = Router()
-  const reparationControl = new ReparationController(Model)
+  const reparationControl = new ReparationController(Reparation, ReparationType)
   router.get('/', reparationControl.getAll.bind(reparationControl))
   router.post('/', reparationControl.create.bind(reparationControl))
   router.delete('/:id', reparationControl.delete.bind(reparationControl))

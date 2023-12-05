@@ -22,7 +22,7 @@ const WorkShopReparation = db.define(
     },
     finalDate: {
       type: DataTypes.DATE,
-      allowNull: false
+      allowNull: true
     },
     idReparation: {
       type: DataTypes.INTEGER.UNSIGNED,
@@ -34,19 +34,19 @@ const WorkShopReparation = db.define(
     },
     time: {
       type: DataTypes.INTEGER.UNSIGNED,
-      allowNull: false
+      allowNull: true
     },
     increase: {
       type: DataTypes.FLOAT,
-      allowNull: false
+      allowNull: true
     },
     discount: {
       type: DataTypes.FLOAT,
-      allowNull: false
+      allowNull: true
     },
     status: {
       type: DataTypes.STRING(255),
-      allowNull: false
+      allowNull: true
     }
   },
   { timestamps: false }

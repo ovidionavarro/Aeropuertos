@@ -1,8 +1,9 @@
 import { validateReparation } from '../schemas/reparation.js'
 
 export default class ReparationController {
-  constructor(Model) {
-    this.Type = Model
+  constructor(Reparation, ReparationType) {
+    this.Type = Reparation
+    this.ReparationType = ReparationType
   }
 
   getAll = async (req, res) => {
@@ -12,6 +13,7 @@ export default class ReparationController {
 
   create = async (req, res) => {
     const body = req.body
+    // validando atributos zod
     const result = validateReparation(body)
     const { Ok, msg } = result
     if (!Ok) {
@@ -19,9 +21,22 @@ export default class ReparationController {
         msg
       })
     }
-
-    const type = await this.Type.create(body)
-    res.status(201).json({ type })
+    const reparationType = body.idReparationType
+    const dataReparationType = await this.ReparationType.findById({ id: reparationType })
+    if (!dataReparationType) {
+      return res.status(401).json({
+        msg: 'reparation type not found'
+      })
+    }
+    try {
+      const type = await this.Type.create(body)
+      res.status(201).json({ type })
+    } catch (error) {
+      const msg = error.errors[0].message
+      return res.status(409).json({
+        msg
+      })
+    }
   }
 
   delete = async (req, res) => {
@@ -41,6 +56,7 @@ export default class ReparationController {
       })
     }
     const body = req.body
+    // validando atributos zod
     const result = validateReparation(body)
     const { Ok, msg } = result
     if (!Ok) {
@@ -48,14 +64,29 @@ export default class ReparationController {
         msg
       })
     }
-    const ok = await this.Type.update(body, { id })
-    if (!ok) {
-      return res.status(400).json({
-        msg: ok
+    // validando foranea
+    const reparationType = body.idReparationType
+    const dataReparationType = await this.ReparationType.findById({ id: reparationType })
+    if (!dataReparationType) {
+      return res.status(401).json({
+        msg: 'reparation type not found'
       })
     }
-    return res.json({
-      msg: ok
-    })
+    try {
+      const ok = await this.Type.update(body, { id })
+      if (!ok) {
+        return res.status(400).json({
+          msg: ok
+        })
+      }
+      return res.json({
+        msg: ok
+      })
+    } catch (error) {
+      const msg = error.errors[0].message
+      return res.status(409).json({
+        msg
+      })
+    }
   }
 }

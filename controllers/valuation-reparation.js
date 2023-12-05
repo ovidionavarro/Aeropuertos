@@ -24,16 +24,23 @@ export default class ValuationRepController {
 
     const query = { ship, startDate: date }
     const aux = await this.WorkShopReparation.find(query)
-    if (!aux) {
+    if (aux === 0) {
       return res.status(401).json({
-        msg: 'nave y fecha de reparacion incorrecta'
+        msg: 'reparation not found'
       })
     }
     const body = { ship, date, valuation }
-    const val = await this.Valuation.create(body)
-    res.status(201).json({
-      val
-    })
+    try {
+      const val = await this.Valuation.create(body)
+      res.status(201).json({
+        val
+      })
+    } catch (error) {
+      const msg = error.errors[0].message
+      return res.status(409).json({
+        msg
+      })
+    }
   }
 
   delete = async (req, res) => {
@@ -64,20 +71,26 @@ export default class ValuationRepController {
     }
     const query2 = { ship, startDate: date }
     const aux = await this.WorkShopReparation.find(query2)
-    if (!aux) {
+    if (aux === 0) {
       res.json({
-        msg: 'dato no resgistrado en taller'
+        msg: 'reparation not found'
       })
     }
     const body = { ship, date, valuation }
-    const ok = await this.Valuation.update(body, query1)
-    if (!ok) {
-      return res.status(400).json({
+    try {
+      const ok = await this.Valuation.update(body, query1)
+      if (!ok) {
+        return res.status(400).json({
+          msg: ok
+        })
+      }
+      return res.json({
         msg: ok
       })
+    } catch (error) {
+      return res.status(409).json({
+        msg
+      })
     }
-    return res.json({
-      msg: ok
-    })
   }
 }
