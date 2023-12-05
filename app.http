@@ -1,0 +1,78 @@
+@host = http://localhost:1234
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZUlkIjoxLCJpYXQiOjE2OTkxNTY2NzMsImV4cCI6MTY5OTc2MTQ3M30.oXywlXMp5NtFRfaWF8wWV0wP8ooCMMGqNpzCrnz01jM
+###
+GET {{host}}/reparation/
+Authorization: Bearer {{token}}
+###
+
+
+GET {{host}}/reports/
+Content-Type: application/json
+
+{
+    "action":"NamesLocationsOfRepairServiceAirports",
+    "format": "pdf"
+}
+
+###
+
+DELETE {{host}}/passenger/?shipOld=2&dateOld=2023-12-12&idClientOld=1
+###
+POST {{host}}/flights/
+Content-Type: application/json
+
+{
+    
+}
+###
+POST {{host}}/clients/
+Authorization: Bearer {{token}}
+Content-Type:application/json
+
+
+{
+    "name": "Cliente3",
+    "nationality": "aa",
+    "password" : "1234",
+    "username" : "c3",
+    "idClientType": 1
+}
+###
+DELETE {{host}}/clients/2
+###
+PUT {{host}}/clients/3
+Content-Type:application/json
+
+{
+
+    "name": "Cliente3",
+    "username" : "cc3",
+    "idClientType": 1
+}
+###
+POST {{host}}/login
+Content-Type:application/json
+
+{
+    "username": "c1",
+    "password" : "1234"
+}
+
+###
+POST {{host}}/airport
+Content-Type:application/json
+
+{
+    "name": "c2",
+    "geoPos" : "aaaaa",
+    "Direction": "aaaaaa"
+
+}
+###
+POST {{host}}/admin/login
+Content-Type:application/json
+
+{
+    "username": "admin",
+    "password" : "admin"
+}
