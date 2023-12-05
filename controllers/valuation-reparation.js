@@ -7,13 +7,17 @@ export default class ValuationRepController {
   }
 
   getAll = async (req, res) => {
-    const _types = await this.Type.find()
+    const _types = await this.Valuation.find()
     res.json(_types)
   }
 
   create = async (req, res) => {
+    if (req.body.valuation === '') {
+      req.body.valuation = null
+    }
     const { ship, date, valuation } = req.body
     // validando atributos zod
+
     const result = validateValuateReparation({ ship, date, valuation })
     const { Ok, msg } = result
     if (!Ok) {
@@ -24,7 +28,8 @@ export default class ValuationRepController {
 
     const query = { ship, startDate: date }
     const aux = await this.WorkShopReparation.find(query)
-    if (aux === 0) {
+
+    if (aux.length === 0) {
       return res.status(401).json({
         msg: 'reparation not found'
       })
@@ -45,10 +50,16 @@ export default class ValuationRepController {
 
   delete = async (req, res) => {
     const { ship, date } = req.query
-    const ok = await this.Valuation.delete({ ship, date })
-    res.json({
-      ok
-    })
+    try {
+      const ok = await this.Valuation.delete({ ship, date })
+      res.json({
+        ok
+      })
+    } catch (error) {
+      res.status(409).json({
+        msg: 'cannot delete, foreing key '
+      })
+    }
   }
 
   update = async (req, res) => {

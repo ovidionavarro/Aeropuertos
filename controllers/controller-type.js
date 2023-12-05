@@ -30,11 +30,16 @@ export default class ControllerType {
 
   delete = async (req, res) => {
     const { id } = req.params
-    console.log(req.params)
-    const ok = await this.Type.delete({ id })
-    res.json({
-      ok
-    })
+    try {
+      const ok = await this.Type.delete({ id })
+      res.json({
+        ok
+      })
+    } catch (error) {
+      res.status(409).json({
+        msg: 'cannot delete, foreing key '
+      })
+    }
   }
 
   update = async (req, res) => {

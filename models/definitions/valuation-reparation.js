@@ -21,7 +21,7 @@ const ValuationReparation = db.define(
     },
     valuation: {
       type: DataTypes.INTEGER.UNSIGNED,
-      allowNull: false
+      allowNull: true
     }
   },
   { timestamps: false }

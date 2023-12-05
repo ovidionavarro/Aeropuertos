@@ -34,10 +34,16 @@ export default class ServiceController {
 
   delete = async (req, res) => {
     const { id } = req.params
-    const ok = await this.Type.delete({ id })
-    res.json({
-      ok
-    })
+    try {
+      const ok = await this.Type.delete({ id })
+      res.json({
+        ok
+      })
+    } catch (error) {
+      res.status(409).json({
+        msg: 'cannot delete, foreing key '
+      })
+    }
   }
 
   update = async (req, res) => {
