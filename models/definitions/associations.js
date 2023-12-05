@@ -1,6 +1,11 @@
-import { Reparation, Installation, AirPort } from './index.js'
+import { Reparation, Installation, AirPort, ReparationType } from './index.js'
 Reparation.belongsTo(Installation, { foreignKey: 'idInstalation' })
 Installation.hasMany(Reparation, { foreignKey: 'idInstalation' })
-AirPort.belongsTo(Installation, { foreiginKey: 'idAirport' })
-Installation.hasOne(AirPort, { foreignKey: 'idAirport' })
+
+Installation.belongsTo(AirPort, { foreignKey: 'idAirport' })
+AirPort.hasMany(Installation, { foreignKey: 'idAirport' })
+
+Reparation.belongsTo(ReparationType, { foreignKey: 'idReparationType' })
+ReparationType.hasMany(Reparation, { foreignKey: 'idReparationType' })
+
 export { Reparation, Installation, AirPort }

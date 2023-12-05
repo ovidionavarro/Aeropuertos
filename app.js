@@ -40,16 +40,19 @@ import {
   ValuationReparation,
   WorkShopReparation
 } from './models/definitions/index.js'
+
 import ModelConstructor from './models/model-constructor.js'
-import ReparationModel from './models/reparacion.js'
+import ReparationModel from './models/reparation.js'
+import WorkShopReparationModel from './models/workshop-reparation.js'
+
 const PORT = process.env.PORT ?? 1234
 
 // conectar con la base de datos
-dbConnect({ alter: false })
+dbConnect({ force: false, alter: false })
 
-// const rep = new ReparationModel(Reparation)
-// const result = await rep.getAirpotsInfo()
-// console.log(result)
+const rep = new WorkShopReparationModel(WorkShopReparation)
+const result = await rep.getTotalCapitalRepairsPerAirport('tipoRep1')
+console.log(result)
 
 const app = express()
 app.use(express.json())
@@ -121,7 +124,7 @@ app.use(
     new ModelConstructor(WorkShopReparation)
   )
 )
-app.use('/reports', ReportsRouter())
+app.use('/reports', ReportsRouter(new ReparationModel(Reparation)))
 
 app.listen(PORT, () => {
   console.log(`http://localhost:${PORT}`)

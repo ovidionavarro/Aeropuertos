@@ -1,6 +1,10 @@
 import { actions } from '../config/defaultValues.js'
 
 export default class ReportsController {
+  constructor(ReparationModel) {
+    this.ReparationModel = ReparationModel
+  }
+
   get = async (req, res) => {
     const { body } = req
     // validate body
@@ -31,7 +35,8 @@ export default class ReportsController {
   }
 
   getNamesLocationsOfRepairServiceAirports = async () => {
-    return { action: 'action1' }
+    const result = await this.ReparationModel.getAirportsInfo()
+    return result
   }
 
   getTotalCapitalRepairsPerAirport = async () => {

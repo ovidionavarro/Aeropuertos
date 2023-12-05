@@ -10,7 +10,7 @@ GET {{host}}/reports/
 Content-Type: application/json
 
 {
-    "action":"JoseMartiAirportClientsByTypeAndShip",
+    "action":"NamesLocationsOfRepairServiceAirports",
     "format": "pdf"
 }
 
